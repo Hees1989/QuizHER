@@ -19,7 +19,7 @@ wss.on('connection', function connection(ws) {
   ws.send('Connected!');
 });
 
-server.listen(8080);
+server.listen(process.env.PORT || 8080);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
