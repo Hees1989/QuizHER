@@ -1,5 +1,6 @@
 const userReducer = (state = {
-    name: "Jaimy"
+    name: "",
+    answer:""
 }, action) => {
     // eslint-disable-next-line
     switch (action.type) {
@@ -7,6 +8,12 @@ const userReducer = (state = {
             state = {
                 ...state,
                 name: action.payload
+            };
+            break;
+        case "USER_SET_ANSWER":
+            state = {
+                ...state,
+                answer: action.payload
             };
             break;
     }
