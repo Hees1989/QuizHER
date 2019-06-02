@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {Route, Switch} from 'react-router-dom';
 import '../App.css';
 import {Main} from "../components/Main";
 import {User} from "../components/User";
@@ -9,6 +10,9 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
+                <Switch>
+                    <Route path="/" component={Main}/>
+                </Switch>
                 <header className="App-header">Wat is deze kutsite?</header>
                 <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
