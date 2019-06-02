@@ -21,7 +21,7 @@ class ApplyForm extends React.Component {
                     <input type="text" value={this.props.user.name} onChange={this.handleChange} />
                 </label>
                 <p>
-                    {this.props.user.name}
+                    {console.log(this.props)}
                 </p>
                 <input type="submit" value="Submit" />
             </form>

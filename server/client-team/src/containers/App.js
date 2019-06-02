@@ -1,17 +1,19 @@
 import React from 'react';
-
+import { Switch, Route } from 'react-router-dom';
 import '../App.css';
 
 import ApplyForm from "../components/ApplyForm";
-
+import CurrentQuestion from "../components/CurrentQuestion";
 
 class App extends React.Component {
     render() {
         return (
             <div className="App">
                 <header className="App-header">Wat is deze kutsite?</header>
-                <ApplyForm/>
-
+                <Switch>
+                    <Route exact path="/" render={(routeProps) => <ApplyForm{...routeProps}/>}/>
+                    <Route path="/currentQuestion" render={(routeProps) => <CurrentQuestion{...routeProps}/>}/>
+                </Switch>
             </div>
         );
     }
