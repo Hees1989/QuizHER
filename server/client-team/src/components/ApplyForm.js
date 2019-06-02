@@ -1,5 +1,5 @@
 import React from 'react';
-import {setName} from "../actions/userActions";
+import {setName} from "../actions/teamActions";
 import {connect} from "react-redux";
 
 class ApplyForm extends React.Component {

@@ -1,9 +1,17 @@
-export const userConstants = {
-   USER_SET_NAME: "USER_SET_NAME",
-    USER_SET_ANSWER: "USER_SET_ANSWER"
+export const teamConstants = {
+   TEAM_SET_NAME: "TEAM_SET_NAME",
 };
 
 export const questionConstants = {
     QUESTION_RECEIVED: "QUESTION_RECEIVED",
     QUESTION_CLOSED:"QUESTION_CLOSED"
+};
+
+export const answerConstants = {
+    APPLY_ANSWER:"APPLY_ANSWER",
+    APPLIED_ANSWER:"APPLIED_ANSWER",
+    CHANGE_ANSWER:"CHANGE_ANSWER",
+    CHANGED_ANSWER:"CHANGED_ANSWER",
+    RESET_ANSWER:"RESET_ANSWER"
 }
+

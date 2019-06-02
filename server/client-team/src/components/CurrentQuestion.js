@@ -1,5 +1,5 @@
 import React from 'react';
-import {setAnswer} from "../actions/userActions";
+import {applyAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
 
 class CurrentQuestion extends React.Component {
@@ -52,7 +52,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         setAnswer: (answer) => {
-            dispatch(setAnswer(answer));
+            dispatch(applyAnswer(answer));
         }
     };
 };
