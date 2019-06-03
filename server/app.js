@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const https = require('https');
 const WebSocket = require('ws');
+const cors = require('cors');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -19,12 +20,16 @@ wss.on('connection', function connection(ws) {
   ws.send('Connected!');
 });
 
-server.listen(process.env.PORT || 8080);
+server.listen(process.env.PORT || 8080, function () {
+  console.log(`Listening on port: ${server.address().port}`)
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors({origin: true, credentials: true}));
+app.options("*", cors({origin: true, credentials: true}));
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
