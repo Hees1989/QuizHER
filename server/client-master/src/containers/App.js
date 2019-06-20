@@ -8,6 +8,10 @@ import {openWebSocket, getWebSocket} from '../serverCommunication';
 
 class App extends React.Component {
 
+    componentDidMount() {
+        openWebSocket();
+    }
+
     render() {
         return (
             <div className="App">

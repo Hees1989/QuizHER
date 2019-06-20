@@ -36,7 +36,12 @@ wss.on('connection', (socket, req) => {
 
     const msg = JSON.parse(message);
     switch (msg.type) {
-      case 'MSG_TYPE_ONE':
+      case 'TEAMNAME_APPLIED':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
 
         break;
       case 'MSG_TYPE_TWO':
@@ -82,6 +87,7 @@ app.use(function(err, req, res, next) {
 
 server.listen(process.env.PORT || 4000, () => {
   console.log('server listening on: ' + server.address().port);
+
 });
 
 module.exports = app;
