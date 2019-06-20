@@ -33,12 +33,6 @@ wss.on('connection', (socket, req) => {
   console.log('connected!');
 
   socket.on('message', (message) => {
-    req.session.reload((err) => {
-      if (err) {
-        throw err;
-      }
-      req.session.save();
-    });
 
     const msg = JSON.parse(message);
     switch (msg.type) {
