@@ -4,8 +4,10 @@ import '../App.css';
 import {Main} from "../components/Main";
 import {User} from "../components/User";
 import {setName} from "../actions/userActions";
+import {openWebSocket, getWebSocket} from '../serverCommunication';
 
 class App extends React.Component {
+
     render() {
         return (
             <div className="App">

@@ -1,25 +1,61 @@
-const createError = require('http-errors');
+const session = require('express-session');
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const createError = require('http-errors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const https = require('https');
+const http = require('http');
 const WebSocket = require('ws');
+const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 
 let app = express();
 
-// view websocket setup
-const server = https.createServer(app);
+app.use(cors({origin: true, credentials: true}));
+app.options("*", cors({origin: true, credentials: true}));
+app.use(bodyParser.json());
+
+const sessionParser = session({
+  saveUninitialized: false,
+  secret: 'passphrase',
+  resave: false
+});
+app.use(sessionParser);
+
+const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 
-wss.on('connection', function connection(ws) {
-  ws.send('Connected!');
-});
+wss.on('connection', (socket, req) => {
+  console.log('connected!');
 
-server.listen(process.env.PORT || 8080);
+  socket.on('message', (message) => {
+    req.session.reload((err) => {
+      if (err) {
+        throw err;
+      }
+      req.session.save();
+    });
+
+    const msg = JSON.parse(message);
+    switch (msg.type) {
+      case 'MSG_TYPE_ONE':
+
+        break;
+      case 'MSG_TYPE_TWO':
+
+        break;
+      default:
+        console.log('Nothing found');
+        console.log('Message: ', msg.type);
+        break;
+      
+    }
+  });
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -48,6 +84,10 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+server.listen(process.env.PORT || 4000, () => {
+  console.log('server listening on: ' + server.address().port);
 });
 
 module.exports = app;
