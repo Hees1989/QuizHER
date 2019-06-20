@@ -1,35 +1,51 @@
 const teamReducer = (state = {
     teams: [
-        {
-            teamName: 'Team A',
-            accepted: false
-        },
-        {
-            teamName: 'Team B',
-            accepted: false
-        }
+
     ]
 }, action) => {
+    let changes;
     switch (action.type) {
         case 'TEAM_REGISTERED':
             state = {
-                ...state,
-                teams: {
-
+                teams: [
+                    ...state.teams,
+                    {
+                        teamName: action.payload,
+                        accepted: false,
+                        rejected: false
+                    }
+                ]
+            };
+            break;
+        case 'TEAM_ACCEPTED':
+            console.log(state.teams);
+            changes = state.teams.map(team => {
+                if (team.teamName === action.payload) {
+                    return {
+                        ...team,
+                        accepted: true,
+                    }
                 }
-            };
-            break;
-        case 'TEAM_ACCEPT':
+            });
             state = {
                 ...state,
-                accepted: true
+                changes
             };
             break;
-        case 'TEAM_DECLINE':
+        case 'TEAM_DECLINED':
+            console.log(state.teams);
+            changes = state.teams.map(team => {
+                if (team.teamName === action.payload) {
+                    return {
+                        ...team,
+                        rejected: true,
+                    }
+                }
+            });
             state = {
                 ...state,
-
-            }
+                changes
+            };
             break;
     }
     return state;
