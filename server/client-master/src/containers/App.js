@@ -8,6 +8,7 @@ import {setName} from "../actions/userActions";
 import {openWebSocket, getWebSocket} from '../serverCommunication';
 import {Header} from "../components/Header";
 import {Footer} from "../components/Footer";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
 
@@ -15,7 +16,11 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Header/>
-                <header className="App-header">Wat is deze kutsite?</header>
+                <Router>
+                    <Switch>
+                        <Route exact path="/" component={Main}/>
+                    </Switch>
+                </Router>
                 <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
                 <Footer/>
