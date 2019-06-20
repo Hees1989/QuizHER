@@ -16,11 +16,13 @@ class App extends React.Component {
         return (
             <div className="App">
                 <Header/>
-                <Router>
-                    <Switch>
-                        <Route exact path="/" component={Main}/>
-                    </Switch>
-                </Router>
+                <div className="Content">
+                    <Router>
+                        <Switch>
+                            <Route exact path="/" component={Main}/>
+                        </Switch>
+                    </Router>
+                </div>
                 <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
                 <Footer/>
