@@ -1,11 +1,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import 'bulma/css/bulma.css';
 
 class Lobby extends React.Component {
     render() {
         return (
             <div>
-                test
+                <section className="section">
+                    <div className="container">
+                        Aangemelde gebruikers
+
+                    </div>
+                </section>
             </div>
         );
     }
