@@ -3212,5 +3212,5 @@ function seedQuestions() {
             "category": "Film and TV"
         }
     ];
-};
+}
 
