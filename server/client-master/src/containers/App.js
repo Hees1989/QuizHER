@@ -6,33 +6,29 @@ import {Main} from "../components/Main";
 import {User} from "../components/User";
 import Lobby from "./Lobby";
 import {setName} from "../actions/userActions";
-import {openWebSocket, getWebSocket} from '../serverCommunication';
 import {Header} from "../components/Header";
 import {Footer} from "../components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
     componentDidMount() {
-        this.initSocket();
+        // this.initSocket();
     }
 
-    initSocket = () => {
-        let ws;
+    // initSocket = () => {
+    //     let ws;
+    //
+    //     if (ws) {
+    //         ws.onerror = ws.onopen = ws.onclose = null;
+    //         ws.close();
+    //     }
+    //     ws = new WebSocket(`ws://localhost:4000`);
+    //     ws.onerror = () => console.log('Error');
+    //     ws.onopen = () => console.log('Websocket connected!');
+    //     ws.onclose = () => console.log('Websocket closed.');
+    //     ws.onmessage = (msg) => console.log(msg.data);
+    // };
 
-        if (ws) {
-            ws.onerror = ws.onopen = ws.onclose = null;
-            ws.close();
-        }
-        ws = new WebSocket(`ws://localhost:4000`);
-        ws.onerror = () => console.log('Error');
-        ws.onopen = () => console.log('Websocket connected!');
-        ws.onclose = () => console.log('Websocket closed.');
-        ws.onmessage = (msg) => console.log(msg.data);
-    };
-
-    componentDidMount() {
-        openWebSocket();
-    }
 
     render() {
         return (

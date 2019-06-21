@@ -1,3 +1,4 @@
+
 const session = require('express-session');
 const express = require('express');
 const cors = require('cors');
@@ -30,74 +31,71 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 
 wss.on('connection', (socket, req) => {
-  socket.send('Team Aids');
+  // socket.send('Team Aids');
 
   socket.on('message', (message) => {
-
     const msg = JSON.parse(message);
     switch (msg.type) {
       case 'TEAM_NAME_INSERTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
-
         break;
       case 'TEAM_NAME_ACCEPTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
-
         break;
       case 'TEAM_NAME_NOT_ACCEPTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
 
         break;
       case 'QUIZZER_START':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUIZZER_END':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUESTION_SELECT':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUESTION_CLOSED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'ANSWER_SENT':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       default:
         console.log('Nothing found');
-        console.log('Message: ', msg.type);
+        console.log('Message:', msg.type);
         break;
       
     }

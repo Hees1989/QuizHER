@@ -11,6 +11,7 @@ class Lobby extends React.Component {
         this.checkMessage();
     };
 
+
     openSocket() {
         const ws = openWebSocket();
     }
@@ -21,7 +22,7 @@ class Lobby extends React.Component {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'TEAM_NAME_INSERTED':
-                    // Als naam is isnerted doe via database krijg teams.
+                    console.log('gaytje');
                     break;
                 case 'TEAM_NAME_ACCEPTED':
                     //Doe niks dan wacht gewoon af
@@ -33,6 +34,7 @@ class Lobby extends React.Component {
             }
         }
     };
+
 
     onSocketSend = (messagetype)=> {
         const msg = {
