@@ -14,22 +14,22 @@ import {registerTeam} from "../actions/teamActions";
 
 class App extends React.Component {
     componentDidMount() {
-        this.initSocket();
-    }
-
-    initSocket = () => {
-        let ws;
-
-        if (ws) {
-            ws.onerror = ws.onopen = ws.onclose = null;
-            ws.close();
-        }
-        ws = new WebSocket(`ws://localhost:4000`);
-        ws.onerror = () => console.log('Error');
-        ws.onopen = () => console.log('Websocket connected!');
-        ws.onclose = () => console.log('Websocket closed.');
-        ws.onmessage = (msg) => this.newMessage(msg);
+        openWebSocket();
     };
+
+    // initSocket = () => {
+    //     let ws;
+    //
+    //     if (ws) {
+    //         ws.onerror = ws.onopen = ws.onclose = null;
+    //         ws.close();
+    //     }
+    //     ws = new WebSocket(`ws://localhost:4000`);
+    //     ws.onerror = () => console.log('Error');
+    //     ws.onopen = () => console.log('Websocket connected!');
+    //     ws.onclose = () => console.log('Websocket closed.');
+    //     ws.onmessage = (msg) => this.newMessage(msg);
+    // };
 
     newMessage = (msg) => {
         switch (msg.type) {
@@ -43,10 +43,6 @@ class App extends React.Component {
                 break;
         }
     };
-
-    componentDidMount() {
-        openWebSocket();
-    }
 
     render() {
         return (
