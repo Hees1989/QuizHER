@@ -44,6 +44,10 @@ class App extends React.Component {
         }
     };
 
+    componentDidMount() {
+        openWebSocket();
+    }
+
     render() {
         return (
             <div className="App">

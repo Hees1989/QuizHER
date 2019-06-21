@@ -30,22 +30,70 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 
 wss.on('connection', (socket, req) => {
-  console.log('connected!');
-  let msg = {
-    action: 'TEAM_REGISTERED',
-    payload: 'Team Aids'
-  };
-  socket.send(JSON.stringify(msg));
+  socket.send('Team Aids');
 
   socket.on('message', (message) => {
 
     const msg = JSON.parse(message);
     switch (msg.type) {
-      case 'MSG_TYPE_ONE':
+      case 'TEAM_NAME_INSERTED':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
 
         break;
-      case 'MSG_TYPE_TWO':
+      case 'TEAM_NAME_ACCEPTED':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
 
+        break;
+      case 'TEAM_NAME_NOT_ACCEPTED':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
+
+        break;
+      case 'QUIZZER_START':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
+        break;
+      case 'QUIZZER_END':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
+        break;
+      case 'QUESTION_SELECT':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
+        break;
+      case 'QUESTION_CLOSED':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
+        break;
+      case 'ANSWER_SENT':
+        theWebSocketServer.clients.forEach((client) => {
+          client.send(JSON.stringify({
+            type: msg.message
+          }));
+        });
         break;
       default:
         console.log('Nothing found');
@@ -87,6 +135,7 @@ app.use(function(err, req, res, next) {
 
 server.listen(process.env.PORT || 4000, () => {
   console.log('server listening on: ' + server.address().port);
+
 });
 
 module.exports = app;
