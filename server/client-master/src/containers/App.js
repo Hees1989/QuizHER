@@ -12,6 +12,23 @@ import {Footer} from "../components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
+    componentDidMount() {
+        this.initSocket();
+    }
+
+    initSocket = () => {
+        let ws;
+
+        if (ws) {
+            ws.onerror = ws.onopen = ws.onclose = null;
+            ws.close();
+        }
+        ws = new WebSocket(`ws://localhost:4000`);
+        ws.onerror = () => console.log('Error');
+        ws.onopen = () => console.log('Websocket connected!');
+        ws.onclose = () => console.log('Websocket closed.');
+        ws.onmessage = (msg) => console.log(msg.data);
+    };
 
     componentDidMount() {
         openWebSocket();
@@ -28,6 +45,7 @@ class App extends React.Component {
                         </Switch>
                     </Router>
                 </div>
+                {/*<button onClick={this.initSocket}>Connect ws</button>*/}
                 <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
                 <Footer/>
