@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+mongoose.set('debug', true);
 
 const questionSchema = new mongoose.Schema({
     question: String,
@@ -6,5 +7,6 @@ const questionSchema = new mongoose.Schema({
     category: String
 });
 
+const Questions = mongoose.model('Questions',questionSchema,'Questions');
 
-module.exports = questionSchema;
+module.exports = Questions;

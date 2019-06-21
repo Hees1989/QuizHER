@@ -1,8 +1,6 @@
 const dbName = 'quizzer';
 const mongoose = require('mongoose');
-const QuestionSchema = require('./model/question');
-
-const Question = mongoose.model('Question', QuestionSchema);
+const Question = require('./model/question');
 const questions = seedQuestions();
 
 mongoose.connect(`mongodb://localhost:27017/${dbName}`, {useNewUrlParser: true}).then(() => {

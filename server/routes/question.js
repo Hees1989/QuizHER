@@ -1,23 +1,21 @@
 const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
-const questionSchema = require('../model/question');
-
-const Questions = mongoose.model('Questions', questionSchema);
+const Questions = require('../model/question');
 
 
 router.get('/randomQuestions',(req,res) => {
-    Questions.find({}, (err, docs) => {
-        if (err) return console.error(err);
+    Questions.find({category:{$in:['Art and Literature','Music']}}).then(
+        questions => {
 
-        // const sixRandomQuestions = [];
-        // for (let i = 0; i < 6; i++) {
-        //     const randomNumber = Math.floor(Math.random() * docs.length - 1);
-        //     sixRandomQuestions[i] = docs[randomNumber];
-        // }
-
-        res.json(docs);
-    });
+            const sixRandomQuestions = [];
+            for (let i = 0; i < 6; i++) {
+                const randomNumber = Math.ceil((questions.length - 1) * Math.random() );
+                sixRandomQuestions[i] = questions[randomNumber];
+            }
+            res.json(sixRandomQuestions)
+        }
+    )
 });
 
 module.exports = router;
