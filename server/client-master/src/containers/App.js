@@ -30,6 +30,10 @@ class App extends React.Component {
         ws.onmessage = (msg) => console.log(msg.data);
     };
 
+    componentDidMount() {
+        openWebSocket();
+    }
+
     render() {
         return (
             <div className="App">

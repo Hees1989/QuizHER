@@ -25,28 +25,17 @@ export function getWebSocket() {
     }
 }
 
-function checkFetchError( response ) {
-    return response.ok
-        ? response.json()
-        : Promise.reject(new Error('Unexpected response'));
+
+export function sendMessage(message){
+    const msg = {
+        type: message
+    };
+    const ws = getWebSocket();
+    ws.send(JSON.stringify(msg));
 }
 
-export function startLogin(userName,password) {
-    const body = { userName, password };
-    const fetchOptions = { method: 'POST',
-        body: JSON.stringify(body),
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
-        credentials: 'include',
-        mode: 'cors'
-    }
-    return fetch(serverFetchBase+'/login', fetchOptions)
-        .then(response => checkFetchError(response));
-}
-
-export function startLogout() {
-    return  fetch(serverFetchBase+'/logout', { method: 'DELETE', credentials: 'include', mode: 'cors' })
-        .then((response) => checkFetchError(response));
-}
+// function checkFetchError( response ) {
+//     return response.ok
+//         ? response.json()
+//         : Promise.reject(new Error('Unexpected response'));
+// }
