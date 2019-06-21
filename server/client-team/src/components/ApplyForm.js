@@ -13,6 +13,10 @@ class ApplyForm extends React.Component {
         event.preventDefault();
     };
 
+    openTheSocket(){
+        const ws = openWebSocket();
+    }
+
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
