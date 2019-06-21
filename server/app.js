@@ -31,7 +31,11 @@ const wss = new WebSocket.Server({server});
 
 wss.on('connection', (socket, req) => {
   console.log('connected!');
-  socket.send('Team Aids');
+  let msg = {
+    action: 'TEAM_REGISTERED',
+    payload: 'Team Aids'
+  };
+  socket.send(JSON.stringify(msg));
 
   socket.on('message', (message) => {
 
