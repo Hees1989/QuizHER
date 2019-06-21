@@ -10,29 +10,39 @@ import {openWebSocket, getWebSocket} from '../serverCommunication';
 import {Header} from "../components/Header";
 import {Footer} from "../components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {registerTeam} from "../actions/teamActions";
 
 class App extends React.Component {
     componentDidMount() {
-        this.initSocket();
-    }
-
-    initSocket = () => {
-        let ws;
-
-        if (ws) {
-            ws.onerror = ws.onopen = ws.onclose = null;
-            ws.close();
-        }
-        ws = new WebSocket(`ws://localhost:4000`);
-        ws.onerror = () => console.log('Error');
-        ws.onopen = () => console.log('Websocket connected!');
-        ws.onclose = () => console.log('Websocket closed.');
-        ws.onmessage = (msg) => console.log(msg.data);
+        openWebSocket();
     };
 
-    componentDidMount() {
-        openWebSocket();
-    }
+    // initSocket = () => {
+    //     let ws;
+    //
+    //     if (ws) {
+    //         ws.onerror = ws.onopen = ws.onclose = null;
+    //         ws.close();
+    //     }
+    //     ws = new WebSocket(`ws://localhost:4000`);
+    //     ws.onerror = () => console.log('Error');
+    //     ws.onopen = () => console.log('Websocket connected!');
+    //     ws.onclose = () => console.log('Websocket closed.');
+    //     ws.onmessage = (msg) => this.newMessage(msg);
+    // };
+
+    newMessage = (msg) => {
+        switch (msg.type) {
+            case 'message':
+                console.log(msg.action);
+                console.log(msg.payload);
+                //registerTeam(msg.payload);
+                break;
+            case '':
+
+                break;
+        }
+    };
 
     render() {
         return (
@@ -46,7 +56,6 @@ class App extends React.Component {
                     </Router>
                 </div>
                 {/*<button onClick={this.initSocket}>Connect ws</button>*/}
-                <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
                 <Footer/>
             </div>
@@ -62,9 +71,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setName: (name) => {
-            dispatch(setName(name));
-        }
+        registerTeam: (name) => dispatch(registerTeam(name))
     };
 };
 

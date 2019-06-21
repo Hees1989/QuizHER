@@ -37,7 +37,7 @@ wss.on('connection', (socket, req) => {
     const msg = JSON.parse(message);
     switch (msg.type) {
       case 'TEAM_NAME_INSERTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
@@ -45,7 +45,7 @@ wss.on('connection', (socket, req) => {
 
         break;
       case 'TEAM_NAME_ACCEPTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
@@ -53,7 +53,7 @@ wss.on('connection', (socket, req) => {
 
         break;
       case 'TEAM_NAME_NOT_ACCEPTED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
@@ -61,35 +61,35 @@ wss.on('connection', (socket, req) => {
 
         break;
       case 'QUIZZER_START':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
         });
         break;
       case 'QUIZZER_END':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
         });
         break;
       case 'QUESTION_SELECT':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
         });
         break;
       case 'QUESTION_CLOSED':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
         });
         break;
       case 'ANSWER_SENT':
-        theWebSocketServer.clients.forEach((client) => {
+        wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
           }));
