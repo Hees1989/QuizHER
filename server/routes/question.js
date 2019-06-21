@@ -10,7 +10,7 @@ router.get('/randomQuestions',(req,res) => {
     Questions.find({category:{$in:['Art and Literature','Music']}}).then(
         questions => {
             const randomQuestions = [];
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 12; i++) {
                 const random = Math.ceil((questions.length - 1) * Math.random() );
                 randomQuestions[i] = questions[random];
             }
