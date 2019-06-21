@@ -31,6 +31,7 @@ const wss = new WebSocket.Server({server});
 
 wss.on('connection', (socket, req) => {
   console.log('connected!');
+  socket.send('Team Aids');
 
   socket.on('message', (message) => {
 
