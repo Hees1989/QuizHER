@@ -2,67 +2,69 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {declineTeam, acceptTeam, registerTeam} from "../actions/teamActions";
-import {getWebSocket, openWebSocket} from "../serverCommunication";
+import {getSocket, initSocket} from "../actions/webSocketActions";
+import {TeamItem} from "../components/TeamItem";
+import {Link} from "react-router-dom";
 
 class Lobby extends React.Component {
 
     componentDidMount() {
-        this.openSocket();
-        this.checkMessage();
+        initSocket();
+        const ws = getSocket();
+        this.checkMessage(ws);
     };
 
-    openSocket() {
-        const ws = openWebSocket();
-    }
-
-    checkMessage = () => {
-        const ws = getWebSocket();
+    checkMessage = (ws) => {
         ws.onmessage = (msg) => {
-            console.log(msg);
             msg = JSON.parse(msg.data);
             switch (msg.type) {
-                case 'TEAM_NAME_INSERTED':
-                    // Als naam is isnerted doe via database krijg teams.
+                case 'TEAM_REGISTERED':
+                    this.props.registerTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_ACCEPTED':
-                    //Doe niks dan wacht gewoon af
+                    /*implement*/
                     break;
                 case 'TEAM_NAME_NOT_ACCEPTED':
-                    // Ontvang nog steeds via database teams.
+                    /*implement*/
                     break;
                 default:
             }
         }
     };
 
-    onSocketSend = (messagetype)=> {
-        const msg = {
-            type: messagetype
-        };
-        const ws = getWebSocket();
-        ws.send(JSON.stringify(msg));
-    }
+    /*Can be used, not necessary. payload can be string or object*/
+    onSocketSend = (messageType, payload) => {
+        const ws = getSocket();
+        ws.send(JSON.stringify({
+            type: messageType,
+            payload: payload
+        }));
+    };
 
-    acceptTeam = teamName =>{
-        // post naar Database welke die moet accepteren
-        this.onSocketSend("TEAM_NAME_ACCEPTED")
-    }
-
-    refuseTeam = teamId =>{
-        // post naar Database welke die niet accepteert
-        this.onSocketSend("TEAM_NAME_NOT_ACCEPTED")
-    }
+    showTeamList = () => {
+        let teamArray = [];
+        let teams = this.props.teams;
+        teams.forEach((team, index) => {
+            teamArray.push(
+                <TeamItem
+                    key={index}
+                    team={team}
+                    acceptTeam={this.props.acceptTeam}
+                    declineTeam={this.props.declineTeam}
+                />
+            );
+        });
+        return teamArray;
+    };
 
     render() {
         return (
             <div>
                 <section className="section">
                     <div className="container">
-                        Aangemelde gebruikers
-                        <button onClick={() => this.props.registerTeam('TeamA')}>Register user A</button>
-                        <button onClick={() => this.props.registerTeam('TeamB')}>Register user B</button>
-                        <button onClick={() => this.props.acceptTeam('TeamA')}>Accept user</button>
-                        <button onClick={() => this.props.declineTeam('TeamB')}>Decline user</button>
+                        <h1>Aangemelde gebruikers</h1>
+                        {this.showTeamList()}
+                        <span className="button is-primary"><Link to="/categories">Start Quiz!</Link></span>
                     </div>
                 </section>
             </div>
@@ -71,9 +73,8 @@ class Lobby extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        team: state.team.teams
+        teams: state.team.teams
     };
 };
 

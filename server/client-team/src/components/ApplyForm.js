@@ -17,7 +17,7 @@ class ApplyForm extends React.Component {
 
     handleSubmit = (event) =>{
         alert('A name was submitted: ' + this.props.user.name);
-        this.onSocketSend('TEAM_NAME_INSERTED')
+        this.onSocketSend('TEAM_REGISTERED', this.props.user.name);
         event.preventDefault();
     };
 
@@ -26,7 +26,7 @@ class ApplyForm extends React.Component {
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
-                case 'TEAM_NAME_INSERTED':
+                case 'TEAM_REGISTERED':
                     console.log('gay');
                     break;
 
@@ -35,9 +35,10 @@ class ApplyForm extends React.Component {
         }
     };
 
-    onSocketSend(messagetype) {
+    onSocketSend(messagetype, payload) {
         const msg = {
-            type: messagetype
+            type: messagetype,
+            payload: payload
         };
         const ws = getWebSocket();
         ws.send(JSON.stringify(msg));

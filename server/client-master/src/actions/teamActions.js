@@ -1,5 +1,4 @@
 export function registerTeam(name) {
-    console.log(name);
     return {
         type: "TEAM_REGISTERED",
         payload: name

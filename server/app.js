@@ -30,13 +30,22 @@ const server = http.createServer(app);
 const wss = new WebSocket.Server({server});
 
 wss.on('connection', (socket, req) => {
-  socket.send('Team Aids');
 
   socket.on('message', (message) => {
-
     const msg = JSON.parse(message);
     switch (msg.type) {
-      case 'TEAM_NAME_INSERTED':
+      case 'TEAM_REGISTERED':
+        wss.clients.forEach((client) => {
+          client.send(JSON.stringify(
+              {
+                type: msg.type,
+                payload: msg.payload
+              }
+          ));
+        });
+
+        break;
+      case 'TEAM_ACCEPTED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message
@@ -44,15 +53,7 @@ wss.on('connection', (socket, req) => {
         });
 
         break;
-      case 'TEAM_NAME_ACCEPTED':
-        wss.clients.forEach((client) => {
-          client.send(JSON.stringify({
-            type: msg.message
-          }));
-        });
-
-        break;
-      case 'TEAM_NAME_NOT_ACCEPTED':
+      case 'TEAM_DECLINED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
             type: msg.message

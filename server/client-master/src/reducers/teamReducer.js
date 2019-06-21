@@ -11,15 +11,14 @@ const teamReducer = (state = {
                     ...state.teams,
                     {
                         teamName: action.payload,
-                        accepted: false,
+                        accepted: true,
                         rejected: false
                     }
                 ]
             };
             break;
         case 'TEAM_ACCEPTED':
-            console.log(state.teams);
-            changes = state.teams.map(team => {
+            changes = state.teams.map((team) => {
                 if (team.teamName === action.payload) {
                     return {
                         ...team,
@@ -29,11 +28,13 @@ const teamReducer = (state = {
             });
             state = {
                 ...state,
-                changes
+                teams: {
+                    ...state.teams
+                }
+
             };
             break;
         case 'TEAM_DECLINED':
-            console.log(state.teams);
             changes = state.teams.map(team => {
                 if (team.teamName === action.payload) {
                     return {
@@ -46,6 +47,9 @@ const teamReducer = (state = {
                 ...state,
                 changes
             };
+            break;
+        default:
+
             break;
     }
     return state;
