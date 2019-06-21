@@ -18,6 +18,7 @@ class Lobby extends React.Component {
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
+            console.log(msg);
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'TEAM_NAME_INSERTED':
