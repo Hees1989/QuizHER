@@ -6,4 +6,5 @@ const questionSchema = new mongoose.Schema({
     category: String
 });
 
+
 module.exports = questionSchema;

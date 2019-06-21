@@ -12,7 +12,7 @@ const mongoose = require('mongoose');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
-
+const questionRouter = require('./routes/question');
 let app = express();
 
 app.use(cors({origin: true, credentials: true}));
@@ -39,7 +39,7 @@ wss.on('connection', (socket, req) => {
       case 'TEAM_NAME_INSERTED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
 
@@ -47,7 +47,7 @@ wss.on('connection', (socket, req) => {
       case 'TEAM_NAME_ACCEPTED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
 
@@ -55,7 +55,7 @@ wss.on('connection', (socket, req) => {
       case 'TEAM_NAME_NOT_ACCEPTED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
 
@@ -63,35 +63,35 @@ wss.on('connection', (socket, req) => {
       case 'QUIZZER_START':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUIZZER_END':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUESTION_SELECT':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'QUESTION_CLOSED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
       case 'ANSWER_SENT':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.message
+            type: msg.type
           }));
         });
         break;
@@ -116,6 +116,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/question', questionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -134,7 +135,10 @@ app.use(function(err, req, res, next) {
 });
 
 server.listen(process.env.PORT || 4000, () => {
-  console.log('server listening on: ' + server.address().port);
+   mongoose.connect(`mongodb://localhost:27017/quizzer`, {useNewUrlParser: true}, () => {
+    console.log('Quizzer ' +
+        `has been started on port: ${server.address().port}`);
+  });
 
 });
 
