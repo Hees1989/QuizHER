@@ -13,7 +13,7 @@ import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
 class App extends React.Component {
     componentDidMount() {
-
+        this.initSocket();
     }
 
     initSocket = () => {
@@ -27,6 +27,7 @@ class App extends React.Component {
         ws.onerror = () => console.log('Error');
         ws.onopen = () => console.log('Websocket connected!');
         ws.onclose = () => console.log('Websocket closed.');
+        ws.onmessage = (msg) => console.log(msg.data);
     };
 
     render() {
@@ -40,7 +41,7 @@ class App extends React.Component {
                         </Switch>
                     </Router>
                 </div>
-                <button onClick={this.initSocket}>Connect ws</button>
+                {/*<button onClick={this.initSocket}>Connect ws</button>*/}
                 <Main changeUsername={() => this.props.setName('Botana')}/>
                 <User username={this.props.user.name}/>
                 <Footer/>
