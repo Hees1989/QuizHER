@@ -1,5 +1,5 @@
 import {createStore, combineReducers, applyMiddleware} from 'redux';
-//import reduxWebsocket from '@giantmachines/redux-websocket';
+import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 
 import user from './reducers/userReducer';
@@ -13,5 +13,5 @@ export default createStore(
        user
    }),
     {},
-    applyMiddleware(/*reduxWebsocketMiddleware, */logger)
+    applyMiddleware(thunk, logger)
 );

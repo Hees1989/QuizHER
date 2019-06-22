@@ -2,8 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {Link} from "react-router-dom";
+import {getCategories} from '../getCategories';
 
 class CategoryList extends React.Component {
+    componentWillMount() {
+        console.log(this.props.getCategories());
+    }
 
     render() {
         return (
@@ -23,13 +27,13 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        categories: state.categories
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        getCategories: () => dispatch(getCategories())
     };
 };
 
