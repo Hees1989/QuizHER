@@ -7,3 +7,17 @@ export function setName(name) {
     };
 }
 
+export function setApplied() {
+    return {
+        type: teamConstants.TEAM_APPLIED,
+        payload: true
+    };
+}
+
+export function setDeclined() {
+    return {
+        type: teamConstants.TEAM_DECLINED,
+        payload: false
+    };
+}
+

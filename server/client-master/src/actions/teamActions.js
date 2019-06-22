@@ -1,12 +1,11 @@
-export function registerTeam(name) {
-    console.log(name);
+export const registerTeam = (name)=> {
     return {
         type: "TEAM_REGISTERED",
         payload: name
     };
 }
 
-export function acceptTeam(name) {
+export const acceptTeam = (name) =>{
     return {
         type: "TEAM_ACCEPTED",
         payload: name
