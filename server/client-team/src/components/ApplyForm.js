@@ -27,7 +27,13 @@ class ApplyForm extends React.Component {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'TEAM_REGISTERED':
-                    console.log('gay');
+                    console.log(msg.type);
+                    break;
+                case 'TEAM_ACCEPTED':
+                    console.log(msg.type);
+                    break;
+                case 'TEAM_DECLINED':
+                    console.log(msg.type);
                     break;
 
                 default:

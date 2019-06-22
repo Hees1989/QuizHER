@@ -22,10 +22,10 @@ class Lobby extends React.Component {
                     this.props.registerTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_ACCEPTED':
-                    /*implement*/
+                    // this.props.acceptTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_NOT_ACCEPTED':
-                    /*implement*/
+                    // this.props.declineTeam(msg.payload);
                     break;
                 default:
             }
@@ -49,8 +49,8 @@ class Lobby extends React.Component {
                 <TeamItem
                     key={index}
                     team={team}
-                    acceptTeam={this.props.acceptTeam}
-                    declineTeam={this.props.declineTeam}
+                    acceptTeam={this.onSocketSend}
+                    declineTeam={this.onSocketSend}
                 />
             );
         });
