@@ -13,7 +13,7 @@ const questionReducer = (state = {
             return {
                 ...state,
                 pending: false,
-                questions: action.payload
+                questions: action.questions
             };
         case questionsConstants.QUESTIONS_GET_ERROR:
             return {
@@ -26,4 +26,4 @@ const questionReducer = (state = {
     }
 };
 
-export default questionReducer();
+export default questionReducer;

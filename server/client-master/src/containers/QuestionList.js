@@ -5,14 +5,17 @@ import {Link} from "react-router-dom";
 import {getTwelveIdeas} from '../actions/QuestionsActions';
 
 class QuestionList extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
+        this.props.getQuestions('History','Music','Sport');
     }
 
     render() {
-        console.log(this.props.getQuestions('Art and Literature','Music','Sport'))
+console.log(this.props.questions);
 
         return (
+
             <div>
+
                 <section className="section">
                     <div className="container">
 
@@ -32,7 +35,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getQuestions: () => dispatch(getTwelveIdeas())
+        getQuestions: (category1,category2,category3) => dispatch(getTwelveIdeas(category1,category2,category3))
     };
 };
 

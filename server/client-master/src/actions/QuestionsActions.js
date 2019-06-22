@@ -9,7 +9,7 @@ export function getQuestionsPending() {
 export function getQuestionsSuccess(questions) {
     return {
         type: questionsConstants.QUESTIONS_GET_SUCCESS,
-        questions: questions
+        questions:questions
     }
 }
 
@@ -21,26 +21,15 @@ export function getQuestionsError(error) {
 }
 
 export function getTwelveIdeas(category1, category2, category3) {
-    // Thunk middleware knows how to handle functions.
-    // It passes the dispatch method as an argument to the function,
-    // thus making it able to dispatch actions itself.
     return (dispatch) => {
-        // First dispatch: the app state is updated to inform
-        // that the API call is starting.
         dispatch(getQuestionsPending());
-        // The function called by the thunk middleware can return a value,
-        // that is passed on as the return value of the dispatch method.
-
-        // In this case, we return a promise to wait for.
-        // This is not required by thunk middleware, but it is convenient for us.
-
-        return fetch(`http://localhost:4000/question/randomQuestions`, {
+        return fetch(`http://localhost:4000/question/randomQuestions/`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({
+            body: ({
                 category1: category1,
                 category2: category2,
                 category3: category3,
