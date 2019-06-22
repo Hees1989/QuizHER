@@ -22,14 +22,21 @@ class Lobby extends React.Component {
                     this.props.registerTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_ACCEPTED':
-                    // this.props.acceptTeam(msg.payload);
+                    this.props.acceptTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_NOT_ACCEPTED':
-                    // this.props.declineTeam(msg.payload);
+                    this.props.declineTeam(msg.payload);
                     break;
                 default:
             }
         }
+    };
+
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        this.onSocketSend('QUIZZER_START');
+
     };
 
     /*Can be used, not necessary. payload can be string or object*/
@@ -64,7 +71,7 @@ class Lobby extends React.Component {
                     <div className="container">
                         <h1>Aangemelde gebruikers</h1>
                         {this.showTeamList()}
-                        <span className="button is-primary"><Link to="/categories">Start Quiz!</Link></span>
+                        <button className="button is-primary" onClick={this.handleSubmit}><Link to="/categories">Start Quiz!</Link></button>
                     </div>
                 </section>
             </div>

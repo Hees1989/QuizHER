@@ -1,5 +1,5 @@
 import React from 'react';
-import {setApplied, setName} from "../actions/teamActions";
+import {setApplied, setName,setDeclined} from "../actions/teamActions";
 import {connect} from "react-redux";
 import {openWebSocket,getWebSocket} from '../serverCommunication'
 
@@ -38,7 +38,10 @@ class ApplyForm extends React.Component {
                     console.log(msg.type);
                     break;
                 case 'TEAM_DECLINED':
-                    console.log(msg.type);
+                    this.props.declinedName();
+                    break;
+                case 'QUIZZER_START':
+                    this.props.history.push('/currentQuestion');
                     break;
 
                 default:
@@ -59,7 +62,7 @@ class ApplyForm extends React.Component {
     render() {
 
         return (
-            <SendTeamName username ={this.props.user.name} onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.user.applied}/>
+            <SendTeamName username ={this.props.user.name} onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.user.applied} text={this.props.user.text}/>
 
 
         );
@@ -71,6 +74,7 @@ class ApplyForm extends React.Component {
     if(props.applied === false) {
         return (
             <form onSubmit={(e) =>props.onSubmit(e)}>
+                {props.text}
                 <label>
                     Name:
                     <input type="text" placeholder={'Name'}
@@ -83,18 +87,18 @@ class ApplyForm extends React.Component {
         )
     }
     else{
-        return (
-            <div>
-                <p>Leeg</p>
-            </div>
-    )
+        return(
+        <p>haha</p>
+        )
     }
 }
+
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        applied:state.applied
+        applied:state.applied,
+        text:state.text
     };
 };
 
@@ -105,6 +109,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         applyName: () => {
             dispatch(setApplied());
+        },
+        declinedName: () => {
+            dispatch(setDeclined());
         }
     };
 };

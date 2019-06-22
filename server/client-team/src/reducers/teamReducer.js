@@ -1,7 +1,8 @@
 const teamReducer = (state = {
     _id: "",
     name: "",
-    applied:false
+    applied:false,
+    text:''
 }, action) => {
     // eslint-disable-next-line
     switch (action.type) {
@@ -14,7 +15,15 @@ const teamReducer = (state = {
         case "TEAM_APPLIED":
             state = {
                 ...state,
-                applied: action.payload
+                applied: action.payload,
+                text:''
+            };
+            break;
+        case "TEAM_DECLINED":
+            state = {
+                ...state,
+                applied: action.payload,
+                text:'Your teamname is inappropiate. Please use a nice teamname'
             };
             break;
     }

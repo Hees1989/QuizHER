@@ -14,3 +14,10 @@ export function setApplied() {
     };
 }
 
+export function setDeclined() {
+    return {
+        type: teamConstants.TEAM_DECLINED,
+        payload: false
+    };
+}
+

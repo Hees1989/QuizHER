@@ -1,6 +1,7 @@
 export const teamConstants = {
    TEAM_SET_NAME: "TEAM_SET_NAME",
-    TEAM_APPLIED:"TEAM_APPLIED"
+    TEAM_APPLIED:"TEAM_APPLIED",
+    TEAM_DECLINED:"TEAM_DECLINED"
 };
 
 export const questionConstants = {
