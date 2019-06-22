@@ -1,25 +1,59 @@
 import React from 'react';
 import {applyAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
+import {getWebSocket, openWebSocket} from "../serverCommunication";
 
 class CurrentQuestion extends React.Component {
 
-    handleChange = (event) =>{
-        this.props.setAnswer(event.target.value);
+    componentDidMount() {
+        openWebSocket();
+        this.checkMessage();
+    }
+
+    handleChange = (event) => {
+
+
     };
 
-    handleSubmit = (event) =>{
-        alert('A name was submitted: ' + this.props.user.answer);
-        event.preventDefault();
+    handleSubmit = (event) => {
+
     };
 
-    postAnswer =() => {
-        //
-    };
+    checkMessage = () => {
+        const ws = getWebSocket();
+        ws.onmessage = (msg) => {
+            msg = JSON.parse(msg.data);
+            switch (msg.type) {
+                case 'ANSWER_SENT':
+                    console.log(msg.type);
+                    break;
+                case 'QUESTION_SELECT':
+                    console.log(msg.type);
+                    //Krijg vraag binnen
+                    break;
+                case 'QUESTION_CLOSED':
+                    console.log(msg.type)
+                    //stuur vraag gesloten
+                    break;
+                case 'QUIZZER_END':
+                    this.props.history.push('/endQuizzer');
+                    break;
 
-    getQuestions = () =>{
-        //
-    };
+                default:
+            }
+        }
+    }
+
+
+
+
+    // postAnswer =() => {
+    //     //
+    // };
+    //
+    // getQuestions = () =>{
+    //     //
+    // };
 
     render() {
         if (!this.props.question) {
@@ -32,12 +66,12 @@ class CurrentQuestion extends React.Component {
             <form onSubmit={this.handleSubmit}>
                 <label>
                     Answer:
-                    <input type="text" value={this.props.user.answer} onChange={this.handleChange} />
+                    <input type="text" value={this.props.user.answer} onChange={this.handleChange}/>
                 </label>
                 <p>
                     {this.props.user.answer}
                 </p>
-                <input type="submit" value="Submit" />
+                <input type="submit" value="Submit"/>
             </form>
         );
     }
@@ -45,7 +79,9 @@ class CurrentQuestion extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user:state.user
+        user: state.user,
+        question:state.question,
+        answer:state.answer
     };
 };
 
