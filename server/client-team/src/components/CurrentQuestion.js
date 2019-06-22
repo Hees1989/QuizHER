@@ -62,8 +62,12 @@ class CurrentQuestion extends React.Component {
             )
         }
 
+        let Question = this.props.question
+
         return (
+
             <form onSubmit={this.handleSubmit}>
+                {Question}
                 <label>
                     Answer:
                     <input type="text" value={this.props.user.answer} onChange={this.handleChange}/>
