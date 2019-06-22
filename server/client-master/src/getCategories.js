@@ -9,6 +9,7 @@ export function getCategories() {
                 if (res.error) {
                     throw(res.error);
                 }
+                console.log(res);
                 dispatch(getCategoriesSuccess(res.categories));
                 return res.categories;
             })

@@ -6,7 +6,8 @@ import {getCategories} from '../getCategories';
 
 class CategoryList extends React.Component {
     componentWillMount() {
-        console.log(this.props.getCategories());
+        let categories = this.props.getCategories();
+        console.log(categories);
     }
 
     render() {
