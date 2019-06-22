@@ -7,6 +7,7 @@ import {Header} from "../components/Header";
 import {Footer} from "../components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import CategoryList from "./CategoryList";
+import QuestionList from "./QuestionList";
 
 class App extends React.Component {
 
@@ -19,6 +20,7 @@ class App extends React.Component {
                         <Switch>
                             <Route exact path="/" component={Lobby}/>
                             <Route path="/categories" component={CategoryList}/>
+                            <Route path="/selectQuestion" component={QuestionList}/>
                         </Switch>
                     </Router>
                 </div>

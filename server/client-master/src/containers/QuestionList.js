@@ -2,21 +2,23 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {Link} from "react-router-dom";
-import {getCategories} from '../getCategories';
+import {getTwelveIdeas} from '../actions/QuestionsActions';
 
-class CategoryList extends React.Component {
-    componentWillMount() {
-        console.log(this.props.getCategories());
+class QuestionList extends React.Component {
+    componentDidMount() {
+        this.props.getQuestions('History','Music','Sport');
     }
 
     render() {
+console.log(this.props.questions);
+
         return (
+
             <div>
+
                 <section className="section">
                     <div className="container">
-                        <h1>Categorieën</h1>
-                        <div>Categorie 1</div>
-                        <div>Categorie 2</div>
+
                         <span className="button is-primary"><Link to="">Start Round!</Link></span>
                     </div>
                 </section>
@@ -27,14 +29,14 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.categories
+        questions: state.questions
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategories: () => dispatch(getCategories())
+        getQuestions: (category1,category2,category3) => dispatch(getTwelveIdeas(category1,category2,category3))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryList);
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionList);
