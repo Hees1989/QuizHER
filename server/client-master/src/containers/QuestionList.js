@@ -3,13 +3,30 @@ import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {Link} from "react-router-dom";
 import {getTwelveIdeas, selectQuestion} from '../actions/QuestionsActions';
+import {getWebSocket, openWebSocket} from "../serverCommunication";
 
 class QuestionList extends React.Component {
     componentDidMount() {
+        openWebSocket();
+        const ws = getWebSocket();
+        this.checkMessage(ws);
         let categories = this.props.location.state;
         console.log(categories)
         this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
     }
+
+
+    checkMessage = (ws) => {
+        ws.onmessage = (msg) => {
+            msg = JSON.parse(msg.data);
+            switch (msg.type) {
+                case 'ANSWER_SENT':
+                    console.log(msg.type)
+                    break;
+                default:
+            }
+        }
+    };
 
     showQuestions = () => {
         let questionsArray = [];

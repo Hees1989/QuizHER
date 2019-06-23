@@ -12,11 +12,10 @@ class CurrentQuestion extends React.Component {
 
     handleChange = (event) => {
         this.props.setAnswer(event.target.value);
-
     };
 
     handleSubmit = (event) => {
-        alert('A name was submitted: ' + this.props.user.answer);
+        alert('A answer was submitted: ' + this.props.user.answer);
         // alert('A name was submitted: ' + this.event.target.value);
         // this.props.setName(event.target.value);
         console.log(event);
@@ -30,10 +29,6 @@ class CurrentQuestion extends React.Component {
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
-                case 'ANSWER_SENT':
-                    console.log(msg.type);
-                    onSocketSend('ANSWER_SENT',this.props.answer)
-                    break;
                 case 'SELECT_QUESTION':
                     console.log(msg.type);
                     //Krijg vraag binnen
@@ -54,14 +49,6 @@ class CurrentQuestion extends React.Component {
 
 
 
-    // postAnswer =() => {
-    //     //
-    // };
-    //
-    // getQuestions = () =>{
-    //     //
-    // };
-
     render() {
         // if (!this.props.question) {
         //     return (
@@ -69,22 +56,34 @@ class CurrentQuestion extends React.Component {
         //     )
         // }
 
-        let Question = this.props.question
+
 
         return (
+        <SendAnswer onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.user.applied}/>
+        );
+    }
+}
 
-            <form onSubmit={this.handleSubmit}>
-                {Question}
+function SendAnswer(props){
+    if(props.applied === false) {
+        return (
+            <form onSubmit={(e) =>props.onSubmit(e)}>
+                {/*{props.Question}*/}
                 <label>
                     Answer:
-                    <input type="text" value={this.props.answer} onChange={this.handleChange}/>
+                    <input type="text" placeholder={'Answer'}
+                           onChange={(e) =>props.onChange(e)}/>
                 </label>
                 <p>
-                    {this.props.user.answer}
                 </p>
                 <input type="submit" value="Submit"/>
             </form>
-        );
+        )
+    }
+    else{
+        return(
+            <p>haha</p>
+        )
     }
 }
 

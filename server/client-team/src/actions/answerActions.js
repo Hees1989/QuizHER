@@ -16,7 +16,8 @@ export const resetAnswer = () => {
 
 export const appliedAnswer = () => {
     return {
-        type: answerConstants.APPLIED_ANSWER
+        type: answerConstants.APPLIED_ANSWER,
+        payload:true
     }
 };
 
