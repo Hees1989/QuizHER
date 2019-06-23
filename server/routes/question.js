@@ -20,4 +20,15 @@ router.get('/randomQuestions',(req,res) => {
     )
 });
 
+router.get('/allCategories', (req, res) => {
+    Questions.distinct('category', (err, docs) => {
+        if (err) {
+            throw new Error('Er is iets gruwelijk mis gegaan!');
+        }
+        res.json({
+            categories: docs
+        });
+    });
+});
+
 module.exports = router;

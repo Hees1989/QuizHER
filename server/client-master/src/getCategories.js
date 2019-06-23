@@ -3,13 +3,12 @@ import {getCategoriesPending, getCategoriesSuccess, getCategoriesError} from './
 export function getCategories() {
     return (dispatch) => {
         dispatch(getCategoriesPending());
-        fetch('https://jsonplaceholder.typicode.com/todos')
+        fetch('http://localhost:4000/question/allCategories')
             .then(res => res.json())
             .then(res => {
                 if (res.error) {
                     throw(res.error);
                 }
-                console.log(res);
                 dispatch(getCategoriesSuccess(res.categories));
                 return res.categories;
             })

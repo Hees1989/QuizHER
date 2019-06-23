@@ -5,10 +5,20 @@ import {Link} from "react-router-dom";
 import {getCategories} from '../getCategories';
 
 class CategoryList extends React.Component {
-    componentWillMount() {
-        let categories = this.props.getCategories();
-        console.log(categories);
+    async componentDidMount() {
+        this.props.getCategories();
     }
+
+    showCategories = () => {
+        let categoryArray = [];
+        let categories = this.props.categories.categories;
+        categories.forEach((category, index) => {
+            categoryArray.push(
+                <div key={index}>{category}</div>
+            );
+        });
+        return categoryArray;
+    };
 
     render() {
         return (
@@ -16,8 +26,7 @@ class CategoryList extends React.Component {
                 <section className="section">
                     <div className="container">
                         <h1>Categorieën</h1>
-                        <div>Categorie 1</div>
-                        <div>Categorie 2</div>
+                        {this.showCategories()}
                         <span className="button is-primary"><Link to="">Start Round!</Link></span>
                     </div>
                 </section>
@@ -28,7 +37,7 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.categories
+        categories: state.category
     };
 };
 

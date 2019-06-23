@@ -9,7 +9,7 @@ export function getCategoriesPending() {
 export function getCategoriesSuccess(categories) {
     return {
         type: categoryConstants.CATEGORIES_GET_SUCCESS,
-        categories: categories
+        payload: categories
     }
 }
 
