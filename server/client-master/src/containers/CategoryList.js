@@ -12,9 +12,19 @@ class CategoryList extends React.Component {
     showCategories = () => {
         let categoryArray = [];
         let categories = this.props.categories.categories;
-        categories.forEach((category, index) => {
+        categories.forEach((category, i) => {
             categoryArray.push(
-                <div key={index}>{category}</div>
+                <div key={i}>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name={category}
+                            value={false}
+                        />
+                        {category}
+                    </label>
+                    <br />
+                </div>
             );
         });
         return categoryArray;
@@ -26,7 +36,9 @@ class CategoryList extends React.Component {
                 <section className="section">
                     <div className="container">
                         <h1>Categorieën</h1>
-                        {this.showCategories()}
+                        <form>
+                            {this.showCategories()}
+                        </form>
                         <span className="button is-primary"><Link to="">Start Round!</Link></span>
                     </div>
                 </section>
