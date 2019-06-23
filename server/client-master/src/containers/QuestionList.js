@@ -7,6 +7,7 @@ import {getTwelveIdeas, selectQuestion} from '../actions/QuestionsActions';
 class QuestionList extends React.Component {
     componentDidMount() {
         let categories = this.props.location.state;
+        console.log(categories)
         this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
     }
 

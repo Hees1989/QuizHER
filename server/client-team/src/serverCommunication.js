@@ -26,9 +26,10 @@ export function getWebSocket() {
 }
 
 
-export function sendMessage(message){
+export function onSocketSend(messagetype, payload) {
     const msg = {
-        type: message
+        type: messagetype,
+        payload: payload
     };
     const ws = getWebSocket();
     ws.send(JSON.stringify(msg));

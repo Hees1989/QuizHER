@@ -1,7 +1,7 @@
 import React from 'react';
-import {applyAnswer} from "../actions/answerActions";
+import {applyAnswer,appliedAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
-import {getWebSocket, openWebSocket} from "../serverCommunication";
+import {getWebSocket, openWebSocket,onSocketSend} from "../serverCommunication";
 
 class CurrentQuestion extends React.Component {
 
@@ -11,13 +11,19 @@ class CurrentQuestion extends React.Component {
     }
 
     handleChange = (event) => {
-
+        this.props.setAnswer(event.target.value);
 
     };
 
     handleSubmit = (event) => {
-
+        alert('A name was submitted: ' + this.props.user.answer);
+        // alert('A name was submitted: ' + this.event.target.value);
+        // this.props.setName(event.target.value);
+        console.log(event);
+        onSocketSend('ANSWER_SENT', this.props.user.answer);
+        event.preventDefault();
     };
+
 
     checkMessage = () => {
         const ws = getWebSocket();
@@ -26,9 +32,9 @@ class CurrentQuestion extends React.Component {
             switch (msg.type) {
                 case 'ANSWER_SENT':
                     console.log(msg.type);
+                    onSocketSend('ANSWER_SENT',this.props.answer)
                     break;
-                case 'QUESTION_SELECT':
-                    this.props.question=msg.payload
+                case 'SELECT_QUESTION':
                     console.log(msg.type);
                     //Krijg vraag binnen
                     break;
@@ -57,11 +63,11 @@ class CurrentQuestion extends React.Component {
     // };
 
     render() {
-        if (!this.props.question) {
-            return (
-                <p>"Er is nog geen vraag mi mang"</p>
-            )
-        }
+        // if (!this.props.question) {
+        //     return (
+        //         <p>"Er is nog geen vraag mi mang"</p>
+        //     )
+        // }
 
         let Question = this.props.question
 
@@ -71,7 +77,7 @@ class CurrentQuestion extends React.Component {
                 {Question}
                 <label>
                     Answer:
-                    <input type="text" value={this.props.user.answer} onChange={this.handleChange}/>
+                    <input type="text" value={this.props.answer} onChange={this.handleChange}/>
                 </label>
                 <p>
                     {this.props.user.answer}
@@ -86,7 +92,8 @@ const mapStateToProps = (state) => {
     return {
         user: state.user,
         question:state.question,
-        answer:state.answer
+        answer:state.answer,
+        applied:state.applied
     };
 };
 
@@ -94,6 +101,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         setAnswer: (answer) => {
             dispatch(applyAnswer(answer));
+        },
+        applyName: () => {
+            dispatch(appliedAnswer());
         }
     };
 };

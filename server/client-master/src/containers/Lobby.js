@@ -2,15 +2,15 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {declineTeam, acceptTeam, registerTeam} from "../actions/teamActions";
-import {getSocket, initSocket} from "../actions/webSocketActions";
+import {getWebSocket, openWebSocket,onSocketSend} from "../serverCommunication";
 import {TeamItem} from "../components/TeamItem";
 import {Link} from "react-router-dom";
 
 class Lobby extends React.Component {
 
     componentDidMount() {
-        initSocket();
-        const ws = getSocket();
+        openWebSocket();
+        const ws = getWebSocket();
         this.checkMessage(ws);
     };
 
@@ -35,18 +35,11 @@ class Lobby extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.onSocketSend('QUIZZER_START');
+        onSocketSend('QUIZZER_START');
 
     };
 
-    /*Can be used, not necessary. payload can be string or object*/
-    onSocketSend = (messageType, payload) => {
-        const ws = getSocket();
-        ws.send(JSON.stringify({
-            type: messageType,
-            payload: payload
-        }));
-    };
+
 
     showTeamList = () => {
         let teamArray = [];
@@ -56,8 +49,8 @@ class Lobby extends React.Component {
                 <TeamItem
                     key={index}
                     team={team}
-                    acceptTeam={this.onSocketSend}
-                    declineTeam={this.onSocketSend}
+                    acceptTeam={onSocketSend}
+                    declineTeam={onSocketSend}
                 />
             );
         });

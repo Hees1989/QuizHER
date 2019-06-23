@@ -1,7 +1,7 @@
 import React from 'react';
 import {setApplied, setName,setDeclined} from "../actions/teamActions";
 import {connect} from "react-redux";
-import {openWebSocket,getWebSocket} from '../serverCommunication'
+import {openWebSocket,getWebSocket,onSocketSend} from '../serverCommunication'
 
 class ApplyForm extends React.Component {
 
@@ -22,7 +22,7 @@ class ApplyForm extends React.Component {
         // this.props.setName(event.target.value);
         console.log(event);
         this.props.applyName();
-        this.onSocketSend('TEAM_REGISTERED', this.props.user.name);
+        onSocketSend('TEAM_REGISTERED', this.props.user.name);
         event.preventDefault();
     };
 
@@ -49,14 +49,7 @@ class ApplyForm extends React.Component {
         }
     };
 
-    onSocketSend(messagetype, payload) {
-        const msg = {
-            type: messagetype,
-            payload: payload
-        };
-        const ws = getWebSocket();
-        ws.send(JSON.stringify(msg));
-    }
+
 
 
     render() {
@@ -70,7 +63,6 @@ class ApplyForm extends React.Component {
 }
 
  function SendTeamName(props){
-    console.log(props.applied);
     if(props.applied === false) {
         return (
             <form onSubmit={(e) =>props.onSubmit(e)}>
