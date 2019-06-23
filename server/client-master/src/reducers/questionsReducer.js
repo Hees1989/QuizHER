@@ -13,7 +13,7 @@ const questionReducer = (state = {
             return {
                 ...state,
                 pending: false,
-                questions: action.questions
+                questions: action.payload
             };
         case questionsConstants.QUESTIONS_GET_ERROR:
             return {

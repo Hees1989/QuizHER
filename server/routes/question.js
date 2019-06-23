@@ -6,9 +6,9 @@ const Questions = require('../model/question');
 
 //Bedoeling hiervan is dat je met 1 array 3 categorieen meegeeft
 
-router.get('/randomQuestions',(req,res) => {
+router.get('/randomQuestions/:category1/:category2/:category3',(req,res) => {
     // Questions.find({category:{$in:['Music','Sport','History']}}).then(
-        Questions.find({category:{$in:[req.body.category1,req.body.category2,req.body.category3]}}).then(
+        Questions.find({category:{$in:[req.params.category1,req.params.category2,req.params.category3]}}).then(
         questions => {
             const randomQuestions = [];
             for (let i = 0; i < 12; i++) {

@@ -9,6 +9,22 @@ class CategoryList extends React.Component {
         this.props.getCategories();
     }
 
+    handleSelect = event => {
+        let checkBox = document.getElementById(event.target.id);
+        if (checkBox.checked === true) {
+            this.setState({
+                selectedCategories: [...this.state.selectedCategories, event.target.value]
+            });
+        } else {
+            let array = [...this.state.selectedCategories]; // make a separate copy of the array
+            let index = array.indexOf(event.target.value)
+            if (index !== -1) {
+                array.splice(index, 1);
+                this.setState({selectedCategories: array});
+            }
+        }
+    };
+
     showCategories = () => {
         let categoryArray = [];
         let categories = this.props.categories.categories;
@@ -20,6 +36,7 @@ class CategoryList extends React.Component {
                             type="checkbox"
                             name={category}
                             value={false}
+                            onChange={e =>this.handleSelect(e)}
                         />
                         {category}
                     </label>
@@ -39,7 +56,15 @@ class CategoryList extends React.Component {
                         <form>
                             {this.showCategories()}
                         </form>
-                        <span className="button is-primary"><Link to="">Start Round!</Link></span>
+                        <span className="button is-primary">
+                            <Link to={{
+                                pathname: '/selectQuestion',
+                                state: {
+                                    categories:this.props.selectedCategories
+                                }
+                            }}>Start quizzer</Link>
+
+                       </span>
                     </div>
                 </section>
             </div>
@@ -49,7 +74,8 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.category
+        categories: state.category,
+        selectedCategories:state.selectedCategories
     };
 };
 

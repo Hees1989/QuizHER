@@ -10,7 +10,8 @@ class QuestionList extends React.Component {
     }
 
     render() {
-console.log(this.props.questions);
+        let categories = this.props.location.state;
+console.log(categories);
 
         return (
 
