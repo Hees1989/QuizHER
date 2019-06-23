@@ -1,7 +1,7 @@
 import React from 'react';
 import {applyAnswer,appliedAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
-import {getWebSocket, openWebSocket,onSocketSend} from "../serverCommunication";
+import {getWebSocket, openWebSocket} from "../serverCommunication";
 
 class CurrentQuestion extends React.Component {
 
@@ -15,15 +15,20 @@ class CurrentQuestion extends React.Component {
     };
 
     handleSubmit = (event) => {
-        alert('A answer was submitted: ' + this.props.user.answer);
-        // alert('A name was submitted: ' + this.event.target.value);
-        // this.props.setName(event.target.value);
-        console.log(event);
-        onSocketSend('ANSWER_SENT', this.props.user.answer);
+        alert('A answer was submitted: ' + this.props.answer);
+        this.props.appliedAnswer();
+        this.onSocketSend('TEAM_REGISTERED', this.props.answer);
         event.preventDefault();
     };
 
-
+    onSocketSend = (type, payload)=> {
+        const msg = {
+            type: type,
+            payload: payload
+        };
+        const ws = getWebSocket();
+        ws.send(JSON.stringify(msg));
+    }
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
@@ -59,19 +64,19 @@ class CurrentQuestion extends React.Component {
 
 
         return (
-        <SendAnswer onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.user.applied}/>
+        <SendAnswer answer = {this.props.answer} question = {this.props.question}  sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
         );
     }
 }
 
 function SendAnswer(props){
-    if(props.applied === false) {
+    if(props.sent === false) {
         return (
             <form onSubmit={(e) =>props.onSubmit(e)}>
-                {/*{props.Question}*/}
+                {props.question}
                 <label>
                     Answer:
-                    <input type="text" placeholder={'Answer'}
+                    <input type="text" placeholder={'haha'}
                            onChange={(e) =>props.onChange(e)}/>
                 </label>
                 <p>
@@ -88,11 +93,11 @@ function SendAnswer(props){
 }
 
 const mapStateToProps = (state) => {
+    console.log(state.answer);
     return {
-        user: state.user,
-        question:state.question,
-        answer:state.answer,
-        applied:state.applied
+        question:state.answer.question,
+        answer:state.answer.newAnswer,
+        sent:state.answer.sent
     };
 };
 
@@ -101,7 +106,7 @@ const mapDispatchToProps = (dispatch) => {
         setAnswer: (answer) => {
             dispatch(applyAnswer(answer));
         },
-        applyName: () => {
+        appliedAnswer: () => {
             dispatch(appliedAnswer());
         }
     };

@@ -8,25 +8,25 @@ import {getWebSocket, openWebSocket} from "../serverCommunication";
 class QuestionList extends React.Component {
     componentDidMount() {
         openWebSocket();
-        const ws = getWebSocket();
-        this.checkMessage(ws);
         let categories = this.props.location.state;
-        console.log(categories)
         this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
+
     }
 
+    chooseQuestion = (question) => {
+        console.log('haha')
+        this.props.selectQuestion(question);
+        this.onSocketSend("SELECT_QUESTION",question);
+    }
 
-    checkMessage = (ws) => {
-        ws.onmessage = (msg) => {
-            msg = JSON.parse(msg.data);
-            switch (msg.type) {
-                case 'ANSWER_SENT':
-                    console.log(msg.type)
-                    break;
-                default:
-            }
-        }
-    };
+    onSocketSend = (type, payload)=> {
+        const msg = {
+            type: type,
+            payload: payload
+        };
+        const ws = getWebSocket();
+        ws.send(JSON.stringify(msg));
+    }
 
     showQuestions = () => {
         let questionsArray = [];
@@ -34,7 +34,6 @@ class QuestionList extends React.Component {
         let questions =this.props.questions.questions
 
 
-        console.log(questions);
         questions.map((question, i) => {
             questionsArray.push(
                 <div key={i} >
@@ -46,7 +45,7 @@ class QuestionList extends React.Component {
                             type="checkbox"
                             id={question.question}
                             // value={false}
-                            onChange={e =>this.props.selectQuestion(e.target.id)}
+                            onChange={e =>this.chooseQuestion(e.target.id)}
                         />
                         {question.question}
                     </label>

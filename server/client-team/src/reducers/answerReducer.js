@@ -1,11 +1,9 @@
 const answerReducer = (state = {
-                           newAnswer: '',
-                           currentAnswer: '',
-                           sent: false
-                       },
-                       action) => {
+    question: '',
+    newAnswer: '',
+    sent: false
+}, action) => {
     switch (action.type) {
-
         case "APPLY_ANSWER":
             state = {
                 ...state,
@@ -15,8 +13,7 @@ const answerReducer = (state = {
         case "APPLIED_ANSWER":
             state = {
                 ...state,
-                sent: action.payload,
-                currentAnswer: state.newAnswer
+                sent: true,
             };
             break;
         case "CHANGE_ANSWER":
@@ -30,12 +27,19 @@ const answerReducer = (state = {
             state = {
                 ...state,
                 newAnswer: '',
-                currentAnswer: '',
                 sent: false
+            };
+            break;
+        case "SET_QUESTION":
+            state = {
+                ...state,
+                newAnswer: '',
+                sent: false,
+                question: ''
             };
             break;
     }
     return state;
-}
+};
 
 export default answerReducer;

@@ -26,15 +26,6 @@ export function getWebSocket() {
 }
 
 
-export function onSocketSend(messagetype, payload) {
-    const msg = {
-        type: messagetype,
-        payload: payload
-    };
-    const ws = getWebSocket();
-    ws.send(JSON.stringify(msg));
-}
-
 // function checkFetchError( response ) {
 //     return response.ok
 //         ? response.json()

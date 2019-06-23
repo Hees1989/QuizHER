@@ -27,10 +27,10 @@ export const changedAnswer = () =>{
     }
 };
 
-export const closeQuestion = () => {
+export const setQuestion = (question) => {
     return {
-        type: questionConstants.QUESTION_CLOSED,
-        payload: ''
+        type: "SET_QUESTION",
+        payload: question
     }
 };
 

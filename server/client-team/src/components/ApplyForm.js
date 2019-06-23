@@ -1,7 +1,7 @@
 import React from 'react';
 import {setApplied, setName,setDeclined} from "../actions/teamActions";
 import {connect} from "react-redux";
-import {openWebSocket,getWebSocket,onSocketSend} from '../serverCommunication'
+import {openWebSocket,getWebSocket} from '../serverCommunication'
 
 class ApplyForm extends React.Component {
 
@@ -17,14 +17,23 @@ class ApplyForm extends React.Component {
     };
 
     handleSubmit = (event) => {
-        alert('A name was submitted: ' + this.props.user.name);
+        alert('A name was submitted: ' + this.props.user);
         // alert('A name was submitted: ' + this.event.target.value);
         // this.props.setName(event.target.value);
-        console.log(event);
         this.props.applyName();
-        onSocketSend('TEAM_REGISTERED', this.props.user.name);
+        this.onSocketSend('TEAM_REGISTERED', this.props.user);
+        this.onSocketSend('ANSWER_SENT', this.props.user);
         event.preventDefault();
     };
+
+    onSocketSend = (type, payload)=> {
+        const msg = {
+            type: type,
+            payload: payload
+        };
+        const ws = getWebSocket();
+        ws.send(JSON.stringify(msg));
+    }
 
     checkMessage = () => {
         const ws = getWebSocket();
@@ -55,7 +64,7 @@ class ApplyForm extends React.Component {
     render() {
 
         return (
-            <SendTeamName username ={this.props.user.name} onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.user.applied} text={this.props.user.text}/>
+            <SendTeamName username ={this.props.user} onSubmit={this.handleSubmit} onChange={this.handleChange} applied={this.props.applied} text={this.props.text}/>
 
 
         );
@@ -88,9 +97,9 @@ class ApplyForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user,
-        applied:state.applied,
-        text:state.text
+        user: state.user.name,
+        applied:state.user.applied,
+        text:state.user.text
     };
 };
 
