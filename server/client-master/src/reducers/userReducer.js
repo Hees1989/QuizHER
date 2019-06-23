@@ -1,5 +1,5 @@
 const userReducer = (state = {
-    name: "Jaimy"
+    name: ""
 }, action) => {
     // eslint-disable-next-line
     switch (action.type) {

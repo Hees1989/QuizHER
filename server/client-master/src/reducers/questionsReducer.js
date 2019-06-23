@@ -1,7 +1,8 @@
 import {questionsConstants} from "../constants/constants";
 
 const questionReducer = (state = {
-    questions:[]
+    questions:[],
+    selectedQuestion:''
 }, action) => {
     switch (action.type) {
         case questionsConstants.QUESTIONS_GET_PENDING:
@@ -20,6 +21,11 @@ const questionReducer = (state = {
                 ...state,
                 pending: false,
                 error: action.error
+            };
+        case questionsConstants.SELECT_QUESTION:
+            return {
+                ...state,
+                selectedQuestion:action.payload
             };
         default:
             return state;

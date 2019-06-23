@@ -28,6 +28,7 @@ class CurrentQuestion extends React.Component {
                     console.log(msg.type);
                     break;
                 case 'QUESTION_SELECT':
+                    this.props.question=msg.payload
                     console.log(msg.type);
                     //Krijg vraag binnen
                     break;

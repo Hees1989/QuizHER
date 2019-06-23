@@ -17,5 +17,5 @@ export default createStore(
        questions
    }),
     {},
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk)
 );

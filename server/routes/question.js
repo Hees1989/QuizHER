@@ -13,7 +13,7 @@ router.get('/randomQuestions/:category1/:category2/:category3',(req,res) => {
             const randomQuestions = [];
             for (let i = 0; i < 12; i++) {
                 const random = Math.ceil((questions.length - 1) * Math.random() );
-                randomQuestions[i] = questions[random].question;
+                randomQuestions[i] = questions[random];
             }
             res.json(randomQuestions)
         }

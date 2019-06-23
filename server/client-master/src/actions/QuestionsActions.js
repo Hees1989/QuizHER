@@ -20,10 +20,23 @@ export function getQuestionsError(error) {
     }
 }
 
+export const selectQuestion = (question) => {
+    return {
+        type: "SELECT_QUESTION",
+        payload: question
+    }
+}
+
+export const startQuestion = (quizzer) => {
+    return {
+        type: "QUESTION_ROUND_STARTED",
+        payload: quizzer
+    }
+}
+
 export function getTwelveIdeas(category1, category2, category3) {
     return (dispatch) => {
         dispatch(getQuestionsPending());
-        console.log(category1);
         return fetch(`http://localhost:4000/question/randomQuestions/${category1}/${category2}/${category3}`, {
             method: 'GET',
             headers: {
@@ -41,7 +54,6 @@ export function getTwelveIdeas(category1, category2, category3) {
             }
             )
             .then(data => {
-                console.log(data);
                 // We can dispatch many times!
                 // Here, we update the app state with the results of the API call.
                 return dispatch(getQuestionsSuccess(data))

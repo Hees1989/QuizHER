@@ -5,6 +5,14 @@ import {Link} from "react-router-dom";
 import {getCategories} from '../getCategories';
 
 class CategoryList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedCategories: []
+        };
+    }
+
+
     async componentDidMount() {
         this.props.getCategories();
     }
@@ -13,7 +21,7 @@ class CategoryList extends React.Component {
         let checkBox = document.getElementById(event.target.id);
         if (checkBox.checked === true) {
             this.setState({
-                selectedCategories: [...this.state.selectedCategories, event.target.value]
+                selectedCategories: [...this.state.selectedCategories, event.target.id]
             });
         } else {
             let array = [...this.state.selectedCategories]; // make a separate copy of the array
@@ -34,7 +42,8 @@ class CategoryList extends React.Component {
                     <label>
                         <input
                             type="checkbox"
-                            name={category}
+                            // name={category}
+                            id={category}
                             value={false}
                             onChange={e =>this.handleSelect(e)}
                         />
@@ -60,7 +69,7 @@ class CategoryList extends React.Component {
                             <Link to={{
                                 pathname: '/selectQuestion',
                                 state: {
-                                    categories:this.props.selectedCategories
+                                    categories:this.state.selectedCategories
                                 }
                             }}>Start quizzer</Link>
 
@@ -74,8 +83,7 @@ class CategoryList extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        categories: state.category,
-        selectedCategories:state.selectedCategories
+        categories: state.category
     };
 };
 
