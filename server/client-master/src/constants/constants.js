@@ -15,3 +15,7 @@ export const questionsConstants = {
 export const answerConstants = {
     ANSWER_SENT: 'ANSWER_SENT'
 };
+
+export const roundConstants = {
+    ROUND_ADD_CATEGORIES: 'ROUND_ADD_CATEGORIES'
+};

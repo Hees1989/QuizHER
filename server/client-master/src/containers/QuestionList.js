@@ -17,7 +17,7 @@ class QuestionList extends React.Component {
         console.log('haha')
         this.props.selectQuestion(question);
         this.onSocketSend("SELECT_QUESTION",question);
-    }
+    };
 
     onSocketSend = (type, payload)=> {
         const msg = {
@@ -65,15 +65,10 @@ class QuestionList extends React.Component {
                 <section className="section">
                     <div className="container">
                         <h1>Questions</h1>
-                        {/*<form>*/}
+                        <form>
                             {this.showQuestions()}
-                        {/*</form>*/}
-                        {/*<span className="button is-primary">*/}
-                            {/*<Link to={{*/}
-                                {/*pathname: '/'*/}
-                            {/*}}>Start quizzer</Link>*/}
-
-                       {/*</span>*/}
+                        </form>
+                        <span className="button is-primary"><Link to="/activeQuestion">Start vraag</Link></span>
                     </div>
                 </section>
             </div>
