@@ -1,6 +1,5 @@
 const teamReducer = (state = {
-    teams: [
-    ]
+    teams: []
 }, action) => {
     let changes;
     switch (action.type) {

@@ -17,7 +17,7 @@ class CurrentQuestion extends React.Component {
     handleSubmit = (event) => {
         alert('A answer was submitted: ' + this.props.answer);
         this.props.appliedAnswer();
-        this.onSocketSend('TEAM_REGISTERED', this.props.answer);
+        this.onSocketSend('ANSWER_SENT', this.props.answer);
         event.preventDefault();
     };
 
@@ -38,8 +38,8 @@ class CurrentQuestion extends React.Component {
                     console.log(msg.type);
                     //Krijg vraag binnen
                     break;
-                case 'QUESTION_CLOSED':
-                    console.log(msg.type)
+                case 'ANSWER_SENT':
+                    console.log(msg)
                     //stuur vraag gesloten
                     break;
                 case 'QUIZZER_END':

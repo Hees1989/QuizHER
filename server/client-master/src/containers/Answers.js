@@ -2,9 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
+import {receiveAnswer} from '../actions/answersActions';
 import {Link} from "react-router-dom";
 
-class Lobby extends React.Component {
+class Answers extends React.Component {
 
     componentDidMount() {
         openWebSocket();
@@ -17,6 +18,7 @@ class Lobby extends React.Component {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'ANSWER_SENT':
+                    this.props.receiveAnswer(msg.payload);
                     console.log(msg);
                     // this.props.registerTeam(msg.payload);
                     break;
@@ -64,14 +66,14 @@ class Lobby extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        answer:state.answer
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+    receiveAnswer : (answer) => dispatch(receiveAnswer(answer))
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
+export default connect(mapStateToProps, mapDispatchToProps)(Answers);

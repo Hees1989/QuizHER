@@ -22,7 +22,6 @@ class ApplyForm extends React.Component {
         // this.props.setName(event.target.value);
         this.props.applyName();
         this.onSocketSend('TEAM_REGISTERED', this.props.user);
-        this.onSocketSend('ANSWER_SENT', this.props.user);
         event.preventDefault();
     };
 

@@ -6,6 +6,7 @@ import user from './reducers/userReducer';
 import team from './reducers/teamReducer';
 import category from './reducers/categoryReducer';
 import questions from './reducers/questionsReducer';
+import answer from './reducers/answerReducer';
 
 //const reduxWebsocketMiddleware = reduxWebsocket();
 
@@ -14,7 +15,8 @@ export default createStore(
        team,
        user,
        category,
-       questions
+       questions,
+       answer
    }),
     {},
     applyMiddleware(thunk)

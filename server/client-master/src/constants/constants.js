@@ -11,3 +11,7 @@ export const questionsConstants = {
     SELECT_QUESTION:"SELECT_QUESTION",
     QUESTION_ROUND_STARTED:"QUESTION_ROUND_STARTED"
 };
+
+export const answerConstants = {
+    ANSWER_SENT: 'ANSWER_SENT'
+};
