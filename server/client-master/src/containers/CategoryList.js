@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {Link} from "react-router-dom";
 import {getCategories} from '../getCategories';
+import {addCategories} from "../actions/roundActions";
 
 class CategoryList extends React.Component {
     constructor(props) {
@@ -65,6 +66,7 @@ class CategoryList extends React.Component {
                         <form>
                             {this.showCategories()}
                         </form>
+                        <span className="button is-primary" onClick={() => this.props.addCategories(this.state.selectedCategories)}>Add categories</span>
                         <span className="button is-primary">
                             <Link to={{
                                 pathname: '/selectQuestion',
@@ -89,7 +91,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getCategories: () => dispatch(getCategories())
+        getCategories: () => dispatch(getCategories()),
+        addCategories: (categories) => dispatch(addCategories(categories))
     };
 };
 

@@ -7,6 +7,7 @@ import team from './reducers/teamReducer';
 import category from './reducers/categoryReducer';
 import questions from './reducers/questionsReducer';
 import answer from './reducers/answerReducer';
+import round from './reducers/roundReducer';
 
 //const reduxWebsocketMiddleware = reduxWebsocket();
 
@@ -16,8 +17,10 @@ export default createStore(
        user,
        category,
        questions,
-       answer
+       answer,
+       round
+
    }),
     {},
-    applyMiddleware(thunk)
+    applyMiddleware(thunk, logger)
 );
