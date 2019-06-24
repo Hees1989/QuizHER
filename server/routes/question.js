@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const Questions = require('../model/question');
+const Quiz = require('../model/quiz');
 
 
 //Bedoeling hiervan is dat je met 1 array 3 categorieen meegeeft
@@ -27,6 +28,15 @@ router.get('/allCategories', (req, res) => {
         }
         res.json({
             categories: docs
+        });
+    });
+});
+
+router.get('/:quizId', (req, res) => {
+    Quiz.find({_id: req.params.quizId}, (err, quiz) => {
+        const round = quiz.currentRound;
+        Questions.find({_id: quiz.questions[round]}, (err, question) => {
+            res.json(question.question);
         });
     });
 });

@@ -12,6 +12,7 @@ class Lobby extends React.Component {
         openWebSocket();
         const ws = getWebSocket();
         this.checkMessage(ws);
+
     };
 
     checkMessage = (ws) => {
@@ -19,12 +20,16 @@ class Lobby extends React.Component {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'TEAM_REGISTERED':
+                    // getRegisteredTeams();
+
                     this.props.registerTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_ACCEPTED':
+                    // getRegisteredTeams();
                     this.props.acceptTeam(msg.payload);
                     break;
                 case 'TEAM_NAME_NOT_ACCEPTED':
+                    // getRegisteredTeams();
                     this.props.declineTeam(msg.payload);
                     break;
                 default:
@@ -54,17 +59,23 @@ class Lobby extends React.Component {
         let teamArray = [];
         let teams = this.props.teams;
         teams.forEach((team, index) => {
-            teamArray.push(
-                <TeamItem
-                    key={index}
-                    team={team}
-                    acceptTeam={this.onSocketSend}
-                    declineTeam={this.onSocketSend}
-                />
-            );
+            if(team.accepted===true) {
+                teamArray.push(
+                    <TeamItem
+                        key={index}
+                        team={team}
+                        acceptTeam={this.onSocketSend}
+                        declineTeam={this.onSocketSend}
+                    />
+                );
+            }
         });
+
         return teamArray;
     };
+
+
+
 
     render() {
         return (

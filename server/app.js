@@ -10,9 +10,10 @@ const http = require('http');
 const WebSocket = require('ws');
 const mongoose = require('mongoose');
 
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
 const questionRouter = require('./routes/question');
+const quizRouter = require('./routes/quiz');
+const teamRouter = require('./routes/team');
+
 let app = express();
 
 app.use(cors({origin: true, credentials: true}));
@@ -48,7 +49,9 @@ wss.on('connection', (socket, req) => {
       case 'TEAM_ACCEPTED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
+
           }));
         });
 
@@ -56,7 +59,8 @@ wss.on('connection', (socket, req) => {
       case 'TEAM_DECLINED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
 
@@ -64,35 +68,40 @@ wss.on('connection', (socket, req) => {
       case 'QUIZZER_START':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
       case 'QUIZZER_END':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
       case 'QUESTION_SELECT':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
       case 'QUESTION_CLOSED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
       case 'ANSWER_SENT':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
@@ -115,9 +124,9 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/question', questionRouter);
+app.use('/quiz', quizRouter);
+app.use('/team',teamRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

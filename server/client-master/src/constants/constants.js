@@ -15,3 +15,9 @@ export const questionsConstants = {
 export const answerConstants = {
     ANSWER_SENT: 'ANSWER_SENT'
 };
+
+export const teamConstants = {
+    TEAM_GET_PENDING: 'TEAM_GET_PENDING',
+    TEAM_GET_SUCCESS: 'TEAM_GET_SUCCESS',
+    TEAM_GET_ERROR: 'TEAM_GET_ERROR',
+}

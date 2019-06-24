@@ -1,5 +1,5 @@
 import React from 'react';
-import {setApplied, setName,setDeclined} from "../actions/teamActions";
+import {setApplied, setName,setDeclined,addTeamName} from "../actions/teamActions";
 import {connect} from "react-redux";
 import {openWebSocket,getWebSocket} from '../serverCommunication'
 
@@ -22,6 +22,8 @@ class ApplyForm extends React.Component {
         // this.props.setName(event.target.value);
         this.props.applyName();
         this.onSocketSend('TEAM_REGISTERED', this.props.user);
+        this.props.addTeamNameToDatabase(this.props.user);
+
         event.preventDefault();
     };
 
@@ -32,7 +34,7 @@ class ApplyForm extends React.Component {
         };
         const ws = getWebSocket();
         ws.send(JSON.stringify(msg));
-    }
+    };
 
     checkMessage = () => {
         const ws = getWebSocket();
@@ -112,6 +114,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         declinedName: () => {
             dispatch(setDeclined());
+        },
+        addTeamNameToDatabase:(name) => {
+            dispatch(addTeamName(name));
         }
     };
 };
