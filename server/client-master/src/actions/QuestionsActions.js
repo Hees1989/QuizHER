@@ -22,17 +22,17 @@ export function getQuestionsError(error) {
 
 export const selectQuestion = (question) => {
     return {
-        type: "SELECT_QUESTION",
+        type: questionsConstants.SELECT_QUESTION,
         payload: question
     }
 };
 
-export const startQuestion = (quizzer) => {
-    return {
-        type: "QUESTION_ROUND_STARTED",
-        payload: quizzer
-    }
-};
+// export const startQuestion = (quizzer) => {
+//     return {
+//         type: questionsConstants.QUESTION_ROUND_STARTED,
+//         payload: quizzer
+//     }
+// };
 
 export const removeQuestion = () => {
     return {

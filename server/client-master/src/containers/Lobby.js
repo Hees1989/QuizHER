@@ -7,7 +7,7 @@ import {TeamItem} from "../components/TeamItem";
 import {Link} from "react-router-dom";
 
 class Lobby extends React.Component {
-
+    // TODO alle comments verwijderen als ze echt niet nodig zijn
     componentDidMount() {
         openWebSocket();
         const ws = getWebSocket();
@@ -32,13 +32,12 @@ class Lobby extends React.Component {
         }
     };
 
-
-    handleSubmit = (event) => {
-        event.preventDefault();
-        /*quizzer gaat pas van start wanneer quizmaster vraag heeft geselecteerd*/
-        //this.onSocketSend('QUIZZER_START');
-
-    };
+    // handleSubmit = (event) => {
+    //     event.preventDefault();
+    //     /*quizzer gaat pas van start wanneer quizmaster vraag heeft geselecteerd*/
+    //     //this.onSocketSend('QUIZZER_START');
+    //
+    // };
 
     onSocketSend = (type, payload)=> {
         const msg = {
@@ -47,9 +46,7 @@ class Lobby extends React.Component {
         };
         const ws = getWebSocket();
         ws.send(JSON.stringify(msg));
-    }
-
-
+    };
 
     showTeamList = () => {
         let teamArray = [];
@@ -74,7 +71,7 @@ class Lobby extends React.Component {
                     <div className="container">
                         <h1>Aangemelde gebruikers</h1>
                         {this.showTeamList()}
-                        <button className="button is-primary" onClick={this.handleSubmit}><Link to="/categories">Start Quiz!</Link></button>
+                        <button className="button is-primary"><Link to="/categories">Start Quiz!</Link></button>
                     </div>
                 </section>
             </div>

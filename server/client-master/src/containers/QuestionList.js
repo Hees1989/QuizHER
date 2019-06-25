@@ -21,9 +21,6 @@ class QuestionList extends React.Component {
             } else {
                 this.props.history.push('/endOfRound');
             }
-        } else {
-            //this.props.removeQuestion();
-            //console.log(state.questions)
         }
 
     }
@@ -94,7 +91,7 @@ class QuestionList extends React.Component {
 const mapStateToProps = (state) => {
     return {
         questions: state.questions,
-        selectedQuestion:state.selectedQuestion
+        selectedQuestion: state.selectedQuestion
     };
 };
 

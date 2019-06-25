@@ -1,6 +1,6 @@
-export const receiveAnswer = (answer)=> {
-    return {
-        type: "ANSWER_SENT",
-        payload: answer
-    };
-};
+// export const receiveAnswer = (answer)=> {
+//     return {
+//         type: "ANSWER_SENT",
+//         payload: answer
+//     };
+// };

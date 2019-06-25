@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
 import {setGivenAnswer} from "../actions/teamActions";
-import {TeamItem} from "../components/TeamItem";
 import {Link} from "react-router-dom";
 
 class ActiveQuestion extends React.Component {
