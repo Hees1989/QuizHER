@@ -26,7 +26,7 @@ class App extends React.Component {
                             <Route path="/selectQuestion" component={QuestionList}/>
                             <Route path="/activeQuestion" component={ActiveQuestion}/>
                             <Route path="/endOfRound" component={EndOfRound}/>
-                            <Route path="/answers" component={Answers}/>
+                            {/*<Route path="/answers" component={Answers}/>*/}
                         </Switch>
                     </Router>
                 </div>

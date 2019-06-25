@@ -26,7 +26,7 @@ class CategoryList extends React.Component {
             });
         } else {
             let array = [...this.state.selectedCategories]; // make a separate copy of the array
-            let index = array.indexOf(event.target.value)
+            let index = array.indexOf(event.target.value);
             if (index !== -1) {
                 array.splice(index, 1);
                 this.setState({selectedCategories: array});
