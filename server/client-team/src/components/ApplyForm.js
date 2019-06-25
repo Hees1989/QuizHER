@@ -38,11 +38,14 @@ class ApplyForm extends React.Component {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
+            console.log('bericht');
+            console.log(msg);
             switch (msg.type) {
                 case 'TEAM_REGISTERED':
                     console.log(msg.type);
                     break;
                 case 'TEAM_ACCEPTED':
+                    console.log('is het deze');
                     console.log(msg.type);
                     break;
                 case 'TEAM_DECLINED':
@@ -51,7 +54,9 @@ class ApplyForm extends React.Component {
                 case 'QUIZZER_START':
                     this.props.history.push('/currentQuestion');
                     break;
-
+                case 'TEAM_CURRENT_QUESTION':
+                    this.props.history.push('/currentQuestion', msg.payload);
+                    break;
                 default:
             }
         }

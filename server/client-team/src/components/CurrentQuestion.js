@@ -61,10 +61,11 @@ class CurrentQuestion extends React.Component {
         //     )
         // }
 
-
-
         return (
-        <SendAnswer answer = {this.props.answer} question = {this.props.question}  sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+            <div>
+                {this.props.location.state.currentQuestion}
+                <SendAnswer answer = {this.props.answer} question = {this.props.question}  sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+            </div>
         );
     }
 }
