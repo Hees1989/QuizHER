@@ -16,7 +16,11 @@ class QuestionList extends React.Component {
         openWebSocket();
         let categories = this.props.location.state;
         if (!this.props.questions.questions.length > 0) {
-            this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
+            if (categories) {
+                this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
+            } else {
+                this.props.history.push('/endOfRound');
+            }
         } else {
             //this.props.removeQuestion();
             //console.log(state.questions)
