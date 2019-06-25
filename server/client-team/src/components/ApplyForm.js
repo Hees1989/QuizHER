@@ -32,7 +32,7 @@ class ApplyForm extends React.Component {
         };
         const ws = getWebSocket();
         ws.send(JSON.stringify(msg));
-    }
+    };
 
     checkMessage = () => {
         const ws = getWebSocket();
@@ -93,6 +93,7 @@ class ApplyForm extends React.Component {
         )
     }
     else{
+        // TODO verwijderen of netter maken
         return(
         <p>haha</p>
         )
@@ -102,9 +103,9 @@ class ApplyForm extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.user.name,
-        applied:state.user.applied,
-        text:state.user.text
+        user: state.team.name,
+        applied: state.team.applied,
+        text: state.team.text
     };
 };
 

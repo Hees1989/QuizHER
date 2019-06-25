@@ -4,6 +4,7 @@ const teamReducer = (state = {
     _id: "",
     name: "",
     applied: false,
+    sent: false,
     text: '',
     currentQuestion: '',
     givenAnswer: ''

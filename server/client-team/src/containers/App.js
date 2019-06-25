@@ -10,7 +10,7 @@ class App extends React.Component {
     render() {
         return (
             <div className="App">
-                <header className="App-header">Wat is deze kutsite?</header>
+                <header className="App-header">team app</header>
                 <Switch>
                     <Route exact path="/" render={(routeProps) => <ApplyForm{...routeProps}/>}/>
                     <Route path="/queue" render={(routeProps) => <Queue{...routeProps}/>}/>

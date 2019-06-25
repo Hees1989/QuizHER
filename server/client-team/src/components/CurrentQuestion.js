@@ -12,13 +12,15 @@ class CurrentQuestion extends React.Component {
     }
 
     handleChange = (event) => {
-        this.props.setAnswer(event.target.value);
+        // TODO doen hetzelfde, die in comment kan dus weg
+        //this.props.setAnswer(event.target.value);
         this.props.setGivenAnswer(event.target.value);
     };
 
-    handleSubmit = (event) => {
+    handleSubmit = () => {
         alert('A answer was submitted: ' + this.props.team.givenAnswer);
-        this.props.appliedAnswer();
+        //TODO kan weg, wordt al geset in didMount hierboven
+        //this.props.appliedAnswer();
         this.onSocketSend('ANSWER_SENT', {
             teamName: this.props.team.name,
             givenAnswer: this.props.team.givenAnswer
@@ -35,53 +37,49 @@ class CurrentQuestion extends React.Component {
         ws.send(JSON.stringify(msg));
     };
 
+    // TODO dit component doet niks met sockets, kan weg?
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
                 case 'SELECT_QUESTION':
-                    console.log(msg.type);
+                    //console.log(msg.type);
                     //Krijg vraag binnen
                     break;
                 case 'ANSWER_SENT':
-                    console.log(msg)
+                    //console.log(msg)
                     //stuur vraag gesloten
                     break;
                 case 'QUIZZER_END':
+                    // TODO pad bestaat nog niet
                     this.props.history.push('/endQuizzer');
                     break;
-
                 default:
             }
         }
     };
 
-
-
-
     render() {
         return (
             <div>
                 {this.props.team.currentQuestion.currentQuestion}
-                <SendAnswer answer = {this.props.answer} question = {this.props.question}  sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
+                <SendAnswer sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
             </div>
         );
     }
 }
 
 function SendAnswer(props){
+    // TODO netter maken
     if(props.sent === false) {
         return (
             <form onSubmit={(e) =>props.onSubmit(e)}>
-                {props.question}
                 <label>
                     Answer:
                     <input type="text" placeholder={'haha'}
                            onChange={(e) =>props.onChange(e)}/>
                 </label>
-                <p>
-                </p>
                 <input type="submit" value="Submit"/>
             </form>
         )
@@ -95,18 +93,18 @@ function SendAnswer(props){
 
 const mapStateToProps = (state) => {
     return {
-        question:state.answer.question,
-        answer:state.answer.newAnswer,
-        sent:state.answer.sent,
+        //question: state.answer.question,
+        //answer: state.answer.newAnswer,
+        sent: state.team.sent,
         team: state.team
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        setAnswer: (answer) => {
-            dispatch(applyAnswer(answer));
-        },
+        // setAnswer: (answer) => {
+        //     dispatch(applyAnswer(answer));
+        // },
         appliedAnswer: () => {
             dispatch(appliedAnswer());
         },
