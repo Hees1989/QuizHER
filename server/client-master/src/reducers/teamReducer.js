@@ -13,7 +13,8 @@ const teamReducer = (state = {
                         teamName: action.payload,
                         accepted: true,
                         rejected: false,
-                        givenAnswer: ''
+                        givenAnswer: '',
+                        correctAnswers: 0
                     }
                 ]
             };
@@ -56,6 +57,13 @@ const teamReducer = (state = {
                 }
             });
             return state;
+        case teamConstants.TEAM_INCREASE_SCORE:
+            state.teams.forEach((team) => {
+                if (team.teamName === action.payload.payload.teamName) {
+                    team.correctAnswers = team.correctAnswers + 1
+                }
+            });
+            break;
         default:
 
             break;

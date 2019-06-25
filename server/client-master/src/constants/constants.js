@@ -22,5 +22,6 @@ export const roundConstants = {
 };
 
 export const teamConstants = {
-    TEAM_SET_GIVEN_ANSWER: "TEAM_SET_GIVEN_ANSWER"
+    TEAM_SET_GIVEN_ANSWER: "TEAM_SET_GIVEN_ANSWER",
+    TEAM_INCREASE_SCORE: "TEAM_INCREASE_SCORE"
 };

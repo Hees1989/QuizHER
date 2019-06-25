@@ -27,3 +27,10 @@ export function setGivenAnswer(answerObj) {
         payload: answerObj
     }
 }
+
+export function increaseScore(name) {
+    return {
+        type: teamConstants.TEAM_INCREASE_SCORE,
+        payload: name
+    }
+}
