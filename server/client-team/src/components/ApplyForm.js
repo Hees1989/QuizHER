@@ -1,5 +1,5 @@
 import React from 'react';
-import {setApplied, setName,setDeclined} from "../actions/teamActions";
+import {setApplied, setName, setDeclined, setCurrentQuestion} from "../actions/teamActions";
 import {connect} from "react-redux";
 import {openWebSocket,getWebSocket} from '../serverCommunication'
 
@@ -55,7 +55,8 @@ class ApplyForm extends React.Component {
                     this.props.history.push('/currentQuestion');
                     break;
                 case 'TEAM_CURRENT_QUESTION':
-                    this.props.history.push('/currentQuestion', msg.payload);
+                    this.props.setCurrentQuestion(msg.payload);
+                    this.props.history.push('/currentQuestion');
                     break;
                 default:
             }
@@ -117,7 +118,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         declinedName: () => {
             dispatch(setDeclined());
-        }
+        },
+        setCurrentQuestion: (question) => dispatch(setCurrentQuestion(question))
     };
 };
 

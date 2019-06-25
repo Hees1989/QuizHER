@@ -27,6 +27,16 @@ const questionReducer = (state = {
                 ...state,
                 selectedQuestion:action.payload
             };
+        case questionsConstants.QUESTIONS_REMOVE_QUESTION:
+            state.questions.splice(state.selectedQuestion, 1);
+            // state.questions.forEach((question) => {
+            //     console.log(question);
+            //     console.log(state.selectedQuestion);
+            //     // if (question.teamName === action.payload.payload.teamName) {
+            //     //     question.givenAnswer = action.payload.payload.givenAnswer;
+            //     // }
+            // });
+            return state;
         default:
             return state;
     }

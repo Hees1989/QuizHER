@@ -4,13 +4,15 @@ import logger from 'redux-logger';
 
 import user from './reducers/teamReducer';
 import answer from './reducers/answerReducer';
+import team from './reducers/teamReducer';
 
 //const reduxWebsocketMiddleware = reduxWebsocket();
 
 export default createStore(
    combineReducers({
        user,
-       answer
+       answer,
+       team
    }),
     {},
     applyMiddleware(/*reduxWebsocketMiddleware, */logger)

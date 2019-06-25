@@ -12,6 +12,7 @@ class App extends React.Component {
                 <header className="App-header">Wat is deze kutsite?</header>
                 <Switch>
                     <Route exact path="/" render={(routeProps) => <ApplyForm{...routeProps}/>}/>
+                    {/*<Route path="/queue" render={(routeProps) => <Queue{...routeProps}/>}/>*/}
                     <Route path="/currentQuestion" render={(routeProps) => <CurrentQuestion{...routeProps}/>}/>
                 </Switch>
             </div>

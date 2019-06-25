@@ -9,7 +9,8 @@ export const questionsConstants = {
     QUESTIONS_GET_SUCCESS: 'QUESTIONS_GET_SUCCESS',
     QUESTIONS_GET_ERROR: 'QUESTIONS_GET_ERROR',
     SELECT_QUESTION:"SELECT_QUESTION",
-    QUESTION_ROUND_STARTED:"QUESTION_ROUND_STARTED"
+    QUESTION_ROUND_STARTED:"QUESTION_ROUND_STARTED",
+    QUESTIONS_REMOVE_QUESTION: "QUESTIONS_REMOVE_QUESTION"
 };
 
 export const answerConstants = {
@@ -18,4 +19,8 @@ export const answerConstants = {
 
 export const roundConstants = {
     ROUND_ADD_CATEGORIES: 'ROUND_ADD_CATEGORIES'
+};
+
+export const teamConstants = {
+    TEAM_SET_GIVEN_ANSWER: "TEAM_SET_GIVEN_ANSWER"
 };

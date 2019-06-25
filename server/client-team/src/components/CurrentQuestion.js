@@ -2,6 +2,7 @@ import React from 'react';
 import {applyAnswer,appliedAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
 import {getWebSocket, openWebSocket} from "../serverCommunication";
+import {setGivenAnswer} from "../actions/teamActions";
 
 class CurrentQuestion extends React.Component {
 
@@ -12,12 +13,16 @@ class CurrentQuestion extends React.Component {
 
     handleChange = (event) => {
         this.props.setAnswer(event.target.value);
+        this.props.setGivenAnswer(event.target.value);
     };
 
     handleSubmit = (event) => {
-        alert('A answer was submitted: ' + this.props.answer);
+        alert('A answer was submitted: ' + this.props.team.givenAnswer);
         this.props.appliedAnswer();
-        this.onSocketSend('ANSWER_SENT', this.props.answer);
+        this.onSocketSend('ANSWER_SENT', {
+            teamName: this.props.team.name,
+            givenAnswer: this.props.team.givenAnswer
+        });
         event.preventDefault();
     };
 
@@ -28,7 +33,8 @@ class CurrentQuestion extends React.Component {
         };
         const ws = getWebSocket();
         ws.send(JSON.stringify(msg));
-    }
+    };
+
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
@@ -49,7 +55,7 @@ class CurrentQuestion extends React.Component {
                 default:
             }
         }
-    }
+    };
 
 
 
@@ -63,7 +69,7 @@ class CurrentQuestion extends React.Component {
 
         return (
             <div>
-                {this.props.location.state.currentQuestion}
+                {this.props.team.currentQuestion.currentQuestion}
                 <SendAnswer answer = {this.props.answer} question = {this.props.question}  sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
             </div>
         );
@@ -94,11 +100,11 @@ function SendAnswer(props){
 }
 
 const mapStateToProps = (state) => {
-    console.log(state.answer);
     return {
         question:state.answer.question,
         answer:state.answer.newAnswer,
-        sent:state.answer.sent
+        sent:state.answer.sent,
+        team: state.team
     };
 };
 
@@ -109,7 +115,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         appliedAnswer: () => {
             dispatch(appliedAnswer());
-        }
+        },
+        setGivenAnswer: (answer) => dispatch(setGivenAnswer(answer))
     };
 };
 

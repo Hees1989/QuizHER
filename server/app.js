@@ -91,8 +91,10 @@ wss.on('connection', (socket, req) => {
         break;
       case 'ANSWER_SENT':
         wss.clients.forEach((client) => {
+          console.log(msg.payload);
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;

@@ -1,8 +1,13 @@
+import {teamConstants} from '../constants/constants';
+
 const teamReducer = (state = {
     _id: "",
     name: "",
     applied: false,
-    text: ''
+    text: '',
+    currentQuestion: '',
+    givenAnswer: ''
+
 }, action) => {
     // eslint-disable-next-line
     switch (action.type) {
@@ -26,6 +31,16 @@ const teamReducer = (state = {
                 text: 'Your teamname is inappropiate. Please use a nice teamname'
             };
             break;
+        case teamConstants.TEAM_CURRENT_QUESTION:
+            return {
+                ...state,
+                currentQuestion: action.payload
+            };
+        case teamConstants.TEAM_GIVEN_ANSWER:
+            return {
+                ...state,
+                givenAnswer: action.payload
+            };
     }
     return state;
 };
