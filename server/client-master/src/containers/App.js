@@ -10,6 +10,7 @@ import CategoryList from "./CategoryList";
 import QuestionList from "./QuestionList";
 import Answers from './Answers';
 import ActiveQuestion from "./ActiveQuestion";
+import EndOfRound from "./EndOfRound";
 
 class App extends React.Component {
 
@@ -24,6 +25,7 @@ class App extends React.Component {
                             <Route path="/categories" component={CategoryList}/>
                             <Route path="/selectQuestion" component={QuestionList}/>
                             <Route path="/activeQuestion" component={ActiveQuestion}/>
+                            <Route path="/endOfRound" component={EndOfRound}/>
                             <Route path="/answers" component={Answers}/>
                         </Switch>
                     </Router>

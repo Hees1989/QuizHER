@@ -11,7 +11,9 @@ router.get('/randomQuestions/:category1/:category2/:category3',(req,res) => {
         Questions.find({category:{$in:[req.params.category1,req.params.category2,req.params.category3]}}).then(
         questions => {
             const randomQuestions = [];
-            for (let i = 0; i < 12; i++) {
+            const numberOfQuestions = 2;
+            //const numberOfQuestions = 12;
+            for (let i = 0; i < numberOfQuestions; i++) {
                 const random = Math.ceil((questions.length - 1) * Math.random() );
                 randomQuestions[i] = questions[random];
             }
