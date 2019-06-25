@@ -6,6 +6,9 @@ import {getWebSocket, openWebSocket} from "../serverCommunication";
 class ActiveQuestion extends React.Component {
     componentDidMount() {
         openWebSocket();
+        this.onSocketSend('TEAM_CURRENT_QUESTION', {
+            currentQuestion: this.props.activeQuestion.question
+        });
     }
 
     onSocketSend = (type, payload)=> {
@@ -14,7 +17,7 @@ class ActiveQuestion extends React.Component {
             payload: payload
         };
         const ws = getWebSocket();
-        ws.send(JSON.stringify(msg));
+        ws.onopen = () => ws.send(JSON.stringify(msg));
     };
 
     render() {
@@ -22,14 +25,19 @@ class ActiveQuestion extends React.Component {
             <div>
                 <section className="section">
                     <div className="container">
-                        <h1>Aangemelde gebruikers</h1>
-                        <button className="button is-danger" onClick={console.log('close questions')}>Start Quiz!</button>
+                        <h1>Huidige vraag: </h1>
+                        <p>{this.props.activeQuestion.question}</p>
+                        <p>{this.props.activeQuestion.answer}</p>
                     </div>
                 </section>
                 <section className="section">
                     <div className="container">
-                        <h1>Aangemelde gebruikers</h1>
-                        <button className="button is-danger" onClick={console.log('close questions')}>Start Quiz!</button>
+                        <h1>Gegeven antwoorden</h1>
+                        <div>Teamnaam - gegeven antwoord..</div>
+                        <div>Teamnaam - gegeven antwoord..</div>
+                        <div>Teamnaam - gegeven antwoord..</div>
+                        <button className="button is-danger" onClick={console.log('close questions')}>Stop vraag</button>
+                        <button className="button is-primary" onClick={console.log('close questions')}>Nieuwe vraag</button>
                     </div>
                 </section>
             </div>
@@ -39,7 +47,7 @@ class ActiveQuestion extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-
+        activeQuestion: state.questions.questions[state.questions.selectedQuestion]
     };
 };
 

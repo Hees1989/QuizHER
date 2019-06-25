@@ -96,6 +96,20 @@ wss.on('connection', (socket, req) => {
           }));
         });
         break;
+      /*EVEN NIEUWE NAMEN BEDACHT*/
+      case 'TEAM_CURRENT_QUESTION':
+        wss.clients.forEach((client) => {
+          console.log('klopt dit? :');
+          console.log(msg.payload);
+          client.send(JSON.stringify(
+              {
+                type: msg.type,
+                payload: msg.payload
+              }
+          ));
+        });
+        break;
+      /**/
       default:
         console.log('Nothing found');
         console.log('Message: ', msg.type);

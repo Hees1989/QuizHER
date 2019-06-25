@@ -14,7 +14,7 @@ class QuestionList extends React.Component {
     }
 
     chooseQuestion = (question) => {
-        console.log('haha')
+        console.log(question);
         this.props.selectQuestion(question);
         this.onSocketSend("SELECT_QUESTION",question);
     };
@@ -43,7 +43,7 @@ class QuestionList extends React.Component {
                     <label htmlFor={question.question}>
                         <input
                             type="checkbox"
-                            id={question.question}
+                            id={i}
                             // value={false}
                             onChange={e =>this.chooseQuestion(e.target.id)}
                         />
