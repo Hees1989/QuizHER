@@ -35,7 +35,8 @@ class Lobby extends React.Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        this.onSocketSend('QUIZZER_START');
+        /*quizzer gaat pas van start wanneer quizmaster vraag heeft geselecteerd*/
+        //this.onSocketSend('QUIZZER_START');
 
     };
 

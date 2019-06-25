@@ -21,3 +21,16 @@ export function setDeclined() {
     };
 }
 
+export function setCurrentQuestion(question) {
+    return {
+        type: teamConstants.TEAM_CURRENT_QUESTION,
+        payload: question
+    };
+}
+
+export function setGivenAnswer(answer) {
+    return {
+        type: teamConstants.TEAM_GIVEN_ANSWER,
+        payload: answer
+    }
+}

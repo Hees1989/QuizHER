@@ -13,7 +13,7 @@ const answerReducer = (state = {
         case "APPLIED_ANSWER":
             state = {
                 ...state,
-                sent: true,
+                sent: false,
             };
             break;
         case "CHANGE_ANSWER":

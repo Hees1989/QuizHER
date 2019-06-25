@@ -1,3 +1,5 @@
+import {teamConstants} from '../constants/constants';
+
 const teamReducer = (state = {
     teams: []
 }, action) => {
@@ -10,7 +12,8 @@ const teamReducer = (state = {
                     {
                         teamName: action.payload,
                         accepted: true,
-                        rejected: false
+                        rejected: false,
+                        givenAnswer: ''
                     }
                 ]
             };
@@ -46,6 +49,13 @@ const teamReducer = (state = {
                 changes
             };
             break;
+        case teamConstants.TEAM_SET_GIVEN_ANSWER:
+            state.teams.forEach((team) => {
+                if (team.teamName === action.payload.payload.teamName) {
+                    team.givenAnswer = action.payload.payload.givenAnswer;
+                }
+            });
+            return state;
         default:
 
             break;

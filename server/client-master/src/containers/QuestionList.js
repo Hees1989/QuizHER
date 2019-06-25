@@ -2,21 +2,32 @@ import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
 import {Link} from "react-router-dom";
-import {getTwelveIdeas, selectQuestion} from '../actions/QuestionsActions';
+import {getTwelveIdeas, removeQuestion, selectQuestion} from '../actions/QuestionsActions';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
 
 class QuestionList extends React.Component {
+    componentWillMount() {
+        if (this.props.questions.questions.length > 0) {
+            this.props.removeQuestion();
+        }
+    }
+
     componentDidMount() {
         openWebSocket();
         let categories = this.props.location.state;
-        this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
+        if (!this.props.questions.questions.length > 0) {
+            this.props.getQuestions(categories.categories[0],categories.categories[1],categories.categories[2]);
+        } else {
+            //this.props.removeQuestion();
+            //console.log(state.questions)
+        }
 
     }
 
     chooseQuestion = (question) => {
-        console.log('haha')
+        console.log(question);
         this.props.selectQuestion(question);
-        this.onSocketSend("SELECT_QUESTION",question);
+        this.onSocketSend("SELECT_QUESTION", question);
     };
 
     onSocketSend = (type, payload)=> {
@@ -31,7 +42,7 @@ class QuestionList extends React.Component {
     showQuestions = () => {
         let questionsArray = [];
         // let questions = this.props.questions.questions;
-        let questions =this.props.questions.questions
+        let questions =this.props.questions.questions;
 
 
         questions.map((question, i) => {
@@ -43,7 +54,7 @@ class QuestionList extends React.Component {
                     <label htmlFor={question.question}>
                         <input
                             type="checkbox"
-                            id={question.question}
+                            id={i}
                             // value={false}
                             onChange={e =>this.chooseQuestion(e.target.id)}
                         />
@@ -86,7 +97,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getQuestions: (category1,category2,category3) => dispatch(getTwelveIdeas(category1,category2,category3)),
-        selectQuestion:(question)=> dispatch(selectQuestion(question))
+        selectQuestion:(question)=> dispatch(selectQuestion(question)),
+        removeQuestion: () => dispatch(removeQuestion())
         // startQuestion: startQuestion
     };
 };

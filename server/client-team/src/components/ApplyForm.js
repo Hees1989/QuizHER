@@ -1,5 +1,5 @@
 import React from 'react';
-import {setApplied, setName,setDeclined} from "../actions/teamActions";
+import {setApplied, setName, setDeclined, setCurrentQuestion} from "../actions/teamActions";
 import {connect} from "react-redux";
 import {openWebSocket,getWebSocket} from '../serverCommunication'
 
@@ -38,11 +38,14 @@ class ApplyForm extends React.Component {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
+            console.log('bericht');
+            console.log(msg);
             switch (msg.type) {
                 case 'TEAM_REGISTERED':
                     console.log(msg.type);
                     break;
                 case 'TEAM_ACCEPTED':
+                    console.log('is het deze');
                     console.log(msg.type);
                     break;
                 case 'TEAM_DECLINED':
@@ -51,7 +54,10 @@ class ApplyForm extends React.Component {
                 case 'QUIZZER_START':
                     this.props.history.push('/currentQuestion');
                     break;
-
+                case 'TEAM_CURRENT_QUESTION':
+                    this.props.setCurrentQuestion(msg.payload);
+                    this.props.history.push('/currentQuestion');
+                    break;
                 default:
             }
         }
@@ -112,7 +118,8 @@ const mapDispatchToProps = (dispatch) => {
         },
         declinedName: () => {
             dispatch(setDeclined());
-        }
+        },
+        setCurrentQuestion: (question) => dispatch(setCurrentQuestion(question))
     };
 };
 

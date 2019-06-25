@@ -25,14 +25,20 @@ export const selectQuestion = (question) => {
         type: "SELECT_QUESTION",
         payload: question
     }
-}
+};
 
 export const startQuestion = (quizzer) => {
     return {
         type: "QUESTION_ROUND_STARTED",
         payload: quizzer
     }
-}
+};
+
+export const removeQuestion = () => {
+    return {
+        type: questionsConstants.QUESTIONS_REMOVE_QUESTION
+    }
+};
 
 export function getTwelveIdeas(category1, category2, category3) {
     return (dispatch) => {
