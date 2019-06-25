@@ -20,36 +20,32 @@ const teamReducer = (state = {
             };
             break;
         case 'TEAM_ACCEPTED':
-            changes = state.teams.map((team) => {
-                if (team.teamName === action.payload) {
-                    return {
-                        ...team,
-                        accepted: true,
-                    }
-                }
-            });
-            state = {
-                ...state,
-                teams: {
-                    ...state.teams
-                }
-
-            };
-            break;
+            console.log('team accepted, functionality?');
+            // changes = state.teams.map((team) => {
+            //     if (team.teamName === action.payload) {
+            //         return {
+            //             ...team,
+            //             accepted: true,
+            //         }
+            //     }
+            // });
+            // state = {
+            //     ...state,
+            //     teams: {
+            //         ...state.teams
+            //     }
+            //
+            // };
+            return state;
         case 'TEAM_DECLINED':
-            changes = state.teams.map(team => {
+            let index = 0;
+            state.teams.forEach((team, i) => {
                 if (team.teamName === action.payload) {
-                    return {
-                        ...team,
-                        rejected: true,
-                    }
+                    index = i;
                 }
             });
-            state = {
-                ...state,
-                changes
-            };
-            break;
+            state.teams.splice(index, 1);
+            return state;
         case teamConstants.TEAM_SET_GIVEN_ANSWER:
             state.teams.forEach((team) => {
                 if (team.teamName === action.payload.payload.teamName) {
