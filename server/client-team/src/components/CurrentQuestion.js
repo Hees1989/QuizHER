@@ -23,7 +23,7 @@ class CurrentQuestion extends React.Component {
             teamName: this.props.team.name,
             givenAnswer: this.props.team.givenAnswer
         });
-        event.preventDefault();
+        this.props.history.push('/queue');
     };
 
     onSocketSend = (type, payload)=> {
@@ -61,12 +61,6 @@ class CurrentQuestion extends React.Component {
 
 
     render() {
-        // if (!this.props.question) {
-        //     return (
-        //         <p>"Er is nog geen vraag mi mang"</p>
-        //     )
-        // }
-
         return (
             <div>
                 {this.props.team.currentQuestion.currentQuestion}
