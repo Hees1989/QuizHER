@@ -5,25 +5,26 @@ class TeamDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            teamName: this.props.teamName,
+            teamName: '1',
             pointsThisRound: 0,
             totalPoints: 0,
             correctlyAnsweredQuestions: 0,
             correctlyAnsweredQuestionsThisRound: 0,
             accepted: true,
             submitted: false,
-            answer:''
+            answer:'',
+            showAnswer:false
         };
     }
 
 
     componentDidMount() {
         openWebSocket();
-        this.checkMessage();
+        this.checkMessageRightNow();
     }
 
-    componentDidUpdate() {
-        this.checkMessage();
+    componentWillUpdate(prevProps, prevState, snapshot) {
+        this.checkMessageRightNow();
     }
 
 
@@ -42,17 +43,32 @@ class TeamDetails extends React.Component {
         if(this.state.teamName ===name){
             this.setState({
                 submitted:true,
-                answer:answer
+                answer:answer,
+                showAnswer:false
             })
         }
     }
 
-    checkMessage = () => {
+    showAnswer = (name) =>{
+        if(this.state.teamName ===name){
+            this.setState({
+                showAnswer:true
+            })
+        }
+    }
+
+    checkMessageRightNow = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
             console.log(msg);
             switch (msg.type) {
+                case 'TEAM_REGISTERED':
+                    this.setState({
+                        teamName: msg.payload,
+                        accepted: true
+                    });
+                    break;
                 case 'TEAM_ACCEPTED':
                     this.setState({
                         accepted: true
@@ -67,8 +83,11 @@ class TeamDetails extends React.Component {
                     // this.props.history.push('/currentQuestion');
                     break;
                 case 'ANSWER_SENT':
-                    // this.checkIfSubmitted(msg.payload.teamName,msg.payload.givenAnswer);
-                    console.log('gay')
+                    this.checkIfSubmitted(msg.payload.teamName,msg.payload.givenAnswer);
+                    // this.props.history.push('/currentQuestion');
+                    break;
+                case 'QUESTION_CLOSED':
+                    this.showAnswer(msg.payload.teamName)
                     // this.props.history.push('/currentQuestion');
                     break;
             }

@@ -11,19 +11,19 @@ class TeamList extends React.Component {
             teams: [],
             roundNumber:0,
             questionNumber:0,
-            question:false
+            question:false,
         };
     }
 
     componentDidMount() {
-        // openWebSocket();
-        // this.checkMessage();
+        openWebSocket();
+        this.checkMessage();
     }
 
-    componentDidUpdate() {
-        // this.checkMessage();
+    componentWillUpdate() {
+            this.checkMessage();
     }
-
+    //
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
@@ -34,23 +34,22 @@ class TeamList extends React.Component {
                     this.setState(state => ({
                         teams: [...state.teams,msg.payload]
                     }));
-                    console.log('haha');
-                    console.log(this.state.teams);
 
                     break;
-                case 'TEAM_ACCEPTED':
-
-                    break;
-                case 'TEAM_DECLINED':
-                    let array = [...this.state.teams];
-                    let index = array.indexOf(msg.payload);
-                    if (index !== -1) {
-                        array.splice(index, 1);
-                        this.setState({teams: array});
-                    }
-
-
-                    break;
+                // case 'TEAM_ACCEPTED':
+                //
+                //     break;
+                // case 'TEAM_DECLINED':
+                //     // let array = [...this.state.teams];
+                //     // let index = array.indexOf(msg.payload);
+                //     // if (index !== -1) {
+                //     //     array.splice(index, 1);
+                //     //     this.setState({teams: array});
+                //     // }
+                //     // console.log('gay')
+                //
+                //
+                //     break;
                 case 'QUIZZER_START':
                     this.props.history.push('/currentQuestion');
                     break;
@@ -62,7 +61,8 @@ class TeamList extends React.Component {
                     question: {currentQuestion,currentCategory}
                 });
                     break;
-                default:
+
+                    // console.log(msg)
             }
         }
     };
@@ -74,7 +74,7 @@ class TeamList extends React.Component {
         for (let team in teams) {
             teamArray.push(
                 <div key={team}>
-                    <TeamDetails teamName ={teams[team]}/>
+                    <TeamDetails />
                 </div>
             );
         }

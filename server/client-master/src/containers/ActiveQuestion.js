@@ -82,6 +82,15 @@ class ActiveQuestion extends React.Component {
         this.onSocketSend("TEAM_INCREASE_SCORE", 0);
     };
 
+    handleStopQuestion =() => {
+        // TODO nog stopactie aan toevoegen.
+        this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    }
+
+    handleNewQuestion =() => {
+        this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    }
+
     render() {
         return (
             <div>
@@ -100,8 +109,8 @@ class ActiveQuestion extends React.Component {
 
                             {/*{this.showAnswersList()}*/}
                         </div>
-                        <button className="button is-danger" onClick={console.log('close questions')}>Stop vraag</button>
-                        <button className="button is-primary"><Link to="/selectQuestion">Nieuwe vraag</Link></button>
+                        <button className="button is-danger" onClick={this.handleStopQuestion}>Stop vraag</button>
+                        <button className="button is-primary" onClick={this.handleNewQuestion}><Link to="/selectQuestion">Nieuwe vraag</Link></button>
                     </div>
                 </section>
             </div>
