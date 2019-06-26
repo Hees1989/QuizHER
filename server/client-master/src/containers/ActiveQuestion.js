@@ -85,11 +85,11 @@ class ActiveQuestion extends React.Component {
     handleStopQuestion =() => {
         // TODO nog stopactie aan toevoegen.
         this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
-    }
+    };
 
-    handleNewQuestion =() => {
-        this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
-    }
+    // handleNewQuestion =() => {
+    //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    // };
 
     render() {
         return (
