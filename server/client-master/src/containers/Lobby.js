@@ -48,6 +48,12 @@ class Lobby extends React.Component {
         ws.send(JSON.stringify(msg));
     };
 
+    declineAndDelete = (name) => {
+        this.onSocketSend('TEAM_DECLINED', name);
+        this.props.declineTeam(name);
+        this.forceUpdate();
+    };
+
     showTeamList = () => {
         let teamArray = [];
         let teams = this.props.teams;
@@ -56,13 +62,16 @@ class Lobby extends React.Component {
                 <TeamItem
                     key={index}
                     team={team}
-                    acceptTeam={this.onSocketSend}
-                    declineTeam={this.onSocketSend}
+                    // TODO weigeren wel voldoende toch? als default gewoon accepteren
+                    //acceptTeam={this.props.acceptTeam(team.teamName)}
+                    declineAndDelete={() => this.declineAndDelete(team.teamName)}
                 />
             );
         });
         return teamArray;
     };
+
+
 
     render() {
         return (
