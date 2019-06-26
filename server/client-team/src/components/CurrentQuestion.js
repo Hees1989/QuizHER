@@ -20,7 +20,7 @@ class CurrentQuestion extends React.Component {
 
     startTimer = () => {
         let timerDiv = document.getElementById('timer');
-        let countDown = 5;
+        let countDown = 30;
         let questionCountDown = setInterval(() => {
             timerDiv.innerHTML = ""+countDown;
             countDown--;

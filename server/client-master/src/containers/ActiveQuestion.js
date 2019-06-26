@@ -20,7 +20,7 @@ class ActiveQuestion extends React.Component {
     }
 
     startTimer = () => {
-        let countDown = 5;
+        let countDown = 30;
         let timerDiv = document.getElementById('timer');
         let questionCountDown = setInterval(() => {
             timerDiv.innerHTML = ""+countDown;
