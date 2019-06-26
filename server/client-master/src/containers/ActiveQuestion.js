@@ -4,12 +4,14 @@ import 'bulma/css/bulma.css';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
 import {setGivenAnswer} from "../actions/teamActions";
 import {Link} from "react-router-dom";
+import {AnswerItem} from "../components/AnswerItem";
 
 class ActiveQuestion extends React.Component {
     componentDidMount() {
         openWebSocket();
         this.onSocketSend('TEAM_CURRENT_QUESTION', {
-            currentQuestion: this.props.activeQuestion.question
+            currentQuestion: this.props.activeQuestion.question,
+            currentCategory: this.props.activeQuestion.category
         });
         const ws = getWebSocket();
         this.checkMessage(ws);
@@ -52,12 +54,50 @@ class ActiveQuestion extends React.Component {
         ws.onopen = () => ws.send(JSON.stringify(msg));
     };
 
+    // showAnswersList = () => {
+    //     let answerArray = [];
+    //     let team = this.props.teams;
+    //
+    //     return (
+    //         team.forEach((team,index) => {
+    //       answerArray.push(
+    //           <AnswerItem
+    //           key={index}
+    //           team={team}
+    //           acceptAnswer={this.onSocketSend}
+    //           declineAnswer={this.onSocketSend}
+    //           />
+    //       )
+    //         })
+    //     )
+    // }
+
+
+
+    handleGoodButton = () => {
+        this.onSocketSend("TEAM_INCREASE_SCORE", 1);
+    };
+
+    handleBadButton = () => {
+        this.onSocketSend("TEAM_INCREASE_SCORE", 0);
+    };
+
+    handleStopQuestion =() => {
+        // TODO nog stopactie aan toevoegen.
+        this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    };
+
+    // handleNewQuestion =() => {
+    //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    // };
+
     render() {
         return (
             <div>
                 <section className="section">
                     <div className="container">
                         <h1>Huidige vraag: </h1>
+                        <p>{this.props.activeQuestion.category}</p>
                         <p>{this.props.activeQuestion.question}</p>
                         <p>{this.props.activeQuestion.answer}</p>
                     </div>
@@ -67,9 +107,10 @@ class ActiveQuestion extends React.Component {
                         <h1>Gegeven antwoorden</h1>
                         <div id="answers">
 
+                            {/*{this.showAnswersList()}*/}
                         </div>
-                        <button className="button is-danger" onClick={console.log('close questions')}>Stop vraag</button>
-                        <button className="button is-primary"><Link to="/selectQuestion">Nieuwe vraag</Link></button>
+                        <button className="button is-danger" onClick={this.handleStopQuestion}>Stop vraag</button>
+                        <button className="button is-primary" onClick={this.handleNewQuestion}><Link to="/selectQuestion">Nieuwe vraag</Link></button>
                     </div>
                 </section>
             </div>
