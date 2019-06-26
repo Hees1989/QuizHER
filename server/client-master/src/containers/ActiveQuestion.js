@@ -4,7 +4,8 @@ import 'bulma/css/bulma.css';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
 import {setGivenAnswer} from "../actions/teamActions";
 import {Link} from "react-router-dom";
-import {AnswerItem} from "../components/AnswerItem";
+
+//import {AnswerItem} from "../components/AnswerItem";
 
 class ActiveQuestion extends React.Component {
     componentDidMount() {
@@ -15,7 +16,21 @@ class ActiveQuestion extends React.Component {
         });
         const ws = getWebSocket();
         this.checkMessage(ws);
+        this.startTimer();
     }
+
+    startTimer = () => {
+        let countDown = 30;
+        let timerDiv = document.getElementById('timer');
+        let questionCountDown = setInterval(() => {
+            timerDiv.innerHTML = ""+countDown;
+            countDown--;
+            if (countDown === -1) {
+                timerDiv.innerHTML = "Tijd is voorbij!";
+                clearInterval(questionCountDown);
+            }
+        }, 1000);
+    };
 
     checkMessage = (ws) => {
         ws.onmessage = (msg) => {
@@ -50,8 +65,12 @@ class ActiveQuestion extends React.Component {
             type: type,
             payload: payload
         };
+        console.log(msg);
         const ws = getWebSocket();
-        ws.onopen = () => ws.send(JSON.stringify(msg));
+        ws.onopen = () => {
+            ws.send(JSON.stringify(msg))
+        };
+
     };
 
     // showAnswersList = () => {
@@ -82,10 +101,10 @@ class ActiveQuestion extends React.Component {
         this.onSocketSend("TEAM_INCREASE_SCORE", 0);
     };
 
-    handleStopQuestion =() => {
-        // TODO nog stopactie aan toevoegen.
-        this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
-    };
+    // handleStopQuestion =() => {
+    //     // TODO nog stopactie aan toevoegen.
+    //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
+    // };
 
     // handleNewQuestion =() => {
     //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
@@ -96,6 +115,9 @@ class ActiveQuestion extends React.Component {
             <div>
                 <section className="section">
                     <div className="container">
+                        <div id="timer">
+
+                        </div>
                         <h1>Huidige vraag: </h1>
                         <p>{this.props.activeQuestion.category}</p>
                         <p>{this.props.activeQuestion.question}</p>
@@ -109,7 +131,7 @@ class ActiveQuestion extends React.Component {
 
                             {/*{this.showAnswersList()}*/}
                         </div>
-                        <button className="button is-danger" onClick={this.handleStopQuestion}>Stop vraag</button>
+                        {/*<button className="button is-danger" onClick={this.handleStopQuestion}>Stop vraag</button>*/}
                         <button className="button is-primary" onClick={this.handleNewQuestion}><Link to="/selectQuestion">Nieuwe vraag</Link></button>
                     </div>
                 </section>

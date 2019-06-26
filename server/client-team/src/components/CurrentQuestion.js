@@ -2,19 +2,34 @@ import React from 'react';
 import {applyAnswer,appliedAnswer} from "../actions/answerActions";
 import {connect} from "react-redux";
 import {getWebSocket, openWebSocket} from "../serverCommunication";
-import {setGivenAnswer} from "../actions/teamActions";
+import {setCurrentQuestion, setGivenAnswer} from "../actions/teamActions";
 
 class CurrentQuestion extends React.Component {
 
     componentDidMount() {
         openWebSocket();
         this.checkMessage();
+        this.startTimer();
     }
 
     handleChange = (event) => {
         // TODO doen hetzelfde, die in comment kan dus weg
         //this.props.setAnswer(event.target.value);
         this.props.setGivenAnswer(event.target.value);
+    };
+
+    startTimer = () => {
+        let timerDiv = document.getElementById('timer');
+        let countDown = 30;
+        let questionCountDown = setInterval(() => {
+            timerDiv.innerHTML = ""+countDown;
+            countDown--;
+            if (countDown === -1) {
+                timerDiv.innerHTML = "Tijd is voorbij!";
+                clearInterval(questionCountDown);
+                this.props.history.push('/queue');
+            }
+        }, 1000);
     };
 
     handleSubmit = () => {
@@ -37,12 +52,18 @@ class CurrentQuestion extends React.Component {
         ws.send(JSON.stringify(msg));
     };
 
-    // TODO dit component doet niks met sockets, kan weg?
     checkMessage = () => {
         const ws = getWebSocket();
         ws.onmessage = (msg) => {
             msg = JSON.parse(msg.data);
             switch (msg.type) {
+                case 'TEAM_CURRENT_QUESTION':
+                    this.props.setCurrentQuestion(msg.payload);
+                    this.props.history.push('/currentQuestion');
+                    break;
+                case 'QUESTION_CLOSED':
+                    console.log('nu alles stuk');
+                    break;
                 case 'SELECT_QUESTION':
                     //console.log(msg.type);
                     //Krijg vraag binnen
@@ -63,6 +84,9 @@ class CurrentQuestion extends React.Component {
     render() {
         return (
             <div>
+                <div id="timer">
+
+                </div>
                 {this.props.team.currentQuestion.currentQuestion}
                 <SendAnswer sent={this.props.sent} onSubmit={this.handleSubmit} onChange={this.handleChange}/>
             </div>
@@ -77,7 +101,7 @@ function SendAnswer(props){
             <form onSubmit={(e) =>props.onSubmit(e)}>
                 <label>
                     Answer:
-                    <input type="text" placeholder={'haha'}
+                    <input id="input" type="text" placeholder={'haha'}
                            onChange={(e) =>props.onChange(e)}/>
                 </label>
                 <input type="submit" value="Submit"/>
@@ -108,6 +132,7 @@ const mapDispatchToProps = (dispatch) => {
         // appliedAnswer: () => {
         //     dispatch(appliedAnswer());
         // },
+        setCurrentQuestion: (question) => dispatch(setCurrentQuestion(question)),
         setGivenAnswer: (answer) => dispatch(setGivenAnswer(answer))
     };
 };
