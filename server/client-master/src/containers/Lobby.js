@@ -7,7 +7,6 @@ import {TeamItem} from "../components/TeamItem";
 import {Link} from "react-router-dom";
 
 class Lobby extends React.Component {
-    // TODO alle comments verwijderen als ze echt niet nodig zijn
     componentDidMount() {
         openWebSocket();
         const ws = getWebSocket();
@@ -32,13 +31,6 @@ class Lobby extends React.Component {
         }
     };
 
-    // handleSubmit = (event) => {
-    //     event.preventDefault();
-    //     /*quizzer gaat pas van start wanneer quizmaster vraag heeft geselecteerd*/
-    //     //this.onSocketSend('QUIZZER_START');
-    //
-    // };
-
     onSocketSend = (type, payload)=> {
         const msg = {
             type: type,
@@ -62,8 +54,6 @@ class Lobby extends React.Component {
                 <TeamItem
                     key={index}
                     team={team}
-                    // TODO weigeren wel voldoende toch? als default gewoon accepteren
-                    //acceptTeam={this.props.acceptTeam(team.teamName)}
                     declineAndDelete={() => this.declineAndDelete(team.teamName)}
                 />
             );

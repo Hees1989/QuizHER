@@ -42,7 +42,6 @@ class QuestionList extends React.Component {
 
     showQuestions = () => {
         let questionsArray = [];
-        // let questions = this.props.questions.questions;
         let questions =this.props.questions.questions;
 
 
@@ -56,7 +55,6 @@ class QuestionList extends React.Component {
                         <input
                             type="checkbox"
                             id={i}
-                            // value={false}
                             onChange={e =>this.chooseQuestion(e.target.id)}
                         />
                         {question.question}
@@ -100,7 +98,6 @@ const mapDispatchToProps = (dispatch) => {
         getQuestions: (category1,category2,category3) => dispatch(getTwelveIdeas(category1,category2,category3)),
         selectQuestion:(question)=> dispatch(selectQuestion(question)),
         removeQuestion: () => dispatch(removeQuestion())
-        // startQuestion: startQuestion
     };
 };
 

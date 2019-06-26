@@ -28,7 +28,6 @@ class App extends React.Component {
                             <Route path="/activeQuestion" component={ActiveQuestion}/>
                             <Route path="/endOfRound" component={EndOfRound}/>
                             <Route path="/endOfGame" component={EndOfGame}/>
-                            {/*<Route path="/answers" component={Answers}/>*/}
                         </Switch>
                     </Router>
                 </div>

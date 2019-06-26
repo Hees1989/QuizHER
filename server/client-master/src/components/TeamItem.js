@@ -5,7 +5,6 @@ export const TeamItem = (props) => {
     return (
         <div>
             {teamName}
-            {/*<button onClick={() => props.acceptTeam('TEAM_ACCEPTED',teamName)}>Accept</button>*/}
             <button onClick={() => props.declineAndDelete(teamName)}>Decline</button>
         </div>
 

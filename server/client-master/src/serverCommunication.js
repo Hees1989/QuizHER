@@ -23,9 +23,3 @@ export function getWebSocket() {
         throw new Error("The websocket has not been opened yet.")
     }
 }
-
-// function checkFetchError( response ) {
-//     return response.ok
-//         ? response.json()
-//         : Promise.reject(new Error('Unexpected response'));
-// }

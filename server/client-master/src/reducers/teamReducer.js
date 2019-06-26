@@ -19,24 +19,6 @@ const teamReducer = (state = {
                 ]
             };
             break;
-        case 'TEAM_ACCEPTED':
-            console.log('team accepted, functionality?');
-            // changes = state.teams.map((team) => {
-            //     if (team.teamName === action.payload) {
-            //         return {
-            //             ...team,
-            //             accepted: true,
-            //         }
-            //     }
-            // });
-            // state = {
-            //     ...state,
-            //     teams: {
-            //         ...state.teams
-            //     }
-            //
-            // };
-            return state;
         case 'TEAM_DECLINED':
             let index = 0;
             state.teams.forEach((team, i) => {

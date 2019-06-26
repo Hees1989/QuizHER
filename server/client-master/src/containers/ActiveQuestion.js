@@ -5,8 +5,6 @@ import {getWebSocket, openWebSocket} from "../serverCommunication";
 import {setGivenAnswer} from "../actions/teamActions";
 import {Link} from "react-router-dom";
 
-//import {AnswerItem} from "../components/AnswerItem";
-
 class ActiveQuestion extends React.Component {
     componentDidMount() {
         openWebSocket();
@@ -73,26 +71,6 @@ class ActiveQuestion extends React.Component {
 
     };
 
-    // showAnswersList = () => {
-    //     let answerArray = [];
-    //     let team = this.props.teams;
-    //
-    //     return (
-    //         team.forEach((team,index) => {
-    //       answerArray.push(
-    //           <AnswerItem
-    //           key={index}
-    //           team={team}
-    //           acceptAnswer={this.onSocketSend}
-    //           declineAnswer={this.onSocketSend}
-    //           />
-    //       )
-    //         })
-    //     )
-    // }
-
-
-
     handleGoodButton = () => {
         this.onSocketSend("TEAM_INCREASE_SCORE", 1);
     };
@@ -100,15 +78,6 @@ class ActiveQuestion extends React.Component {
     handleBadButton = () => {
         this.onSocketSend("TEAM_INCREASE_SCORE", 0);
     };
-
-    // handleStopQuestion =() => {
-    //     // TODO nog stopactie aan toevoegen.
-    //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
-    // };
-
-    // handleNewQuestion =() => {
-    //     this.onSocketSend('QUESTION_CLOSED',this.props.team.teamName);
-    // };
 
     render() {
         return (
@@ -129,9 +98,7 @@ class ActiveQuestion extends React.Component {
                         <h1>Gegeven antwoorden</h1>
                         <div id="answers">
 
-                            {/*{this.showAnswersList()}*/}
                         </div>
-                        {/*<button className="button is-danger" onClick={this.handleStopQuestion}>Stop vraag</button>*/}
                         <button className="button is-primary" onClick={this.handleNewQuestion}><Link to="/selectQuestion">Nieuwe vraag</Link></button>
                     </div>
                 </section>

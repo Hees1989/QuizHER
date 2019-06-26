@@ -43,7 +43,6 @@ class CategoryList extends React.Component {
                     <label>
                         <input
                             type="checkbox"
-                            // name={category}
                             id={category}
                             value={false}
                             onChange={e =>this.handleSelect(e)}

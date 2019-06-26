@@ -27,13 +27,6 @@ export const selectQuestion = (question) => {
     }
 };
 
-// export const startQuestion = (quizzer) => {
-//     return {
-//         type: questionsConstants.QUESTION_ROUND_STARTED,
-//         payload: quizzer
-//     }
-// };
-
 export const removeQuestion = () => {
     return {
         type: questionsConstants.QUESTIONS_REMOVE_QUESTION
