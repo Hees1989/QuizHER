@@ -83,7 +83,9 @@ wss.on('connection', (socket, req) => {
         });
         break;
       case 'QUESTION_CLOSED':
+        console.log('looolll');
         wss.clients.forEach((client) => {
+          console.log('shit is over');
           client.send(JSON.stringify({
             type: msg.type,
             payload: msg.payload
@@ -92,7 +94,6 @@ wss.on('connection', (socket, req) => {
         break;
       case 'ANSWER_SENT':
         wss.clients.forEach((client) => {
-          // console.log(msg.payload);
           client.send(JSON.stringify({
             type: msg.type,
             payload: msg.payload
