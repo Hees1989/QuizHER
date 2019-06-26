@@ -36,9 +36,6 @@ class TeamList extends React.Component {
                     }));
 
                     break;
-                // case 'TEAM_ACCEPTED':
-                //
-                //     break;
                 // case 'TEAM_DECLINED':
                 //     // let array = [...this.state.teams];
                 //     // let index = array.indexOf(msg.payload);
@@ -46,7 +43,6 @@ class TeamList extends React.Component {
                 //     //     array.splice(index, 1);
                 //     //     this.setState({teams: array});
                 //     // }
-                //     // console.log('gay')
                 //
                 //
                 //     break;
@@ -61,8 +57,6 @@ class TeamList extends React.Component {
                     question: {currentQuestion,currentCategory}
                 });
                     break;
-
-                    // console.log(msg)
             }
         }
     };
@@ -78,9 +72,7 @@ class TeamList extends React.Component {
                 </div>
             );
         }
-        // //
-        //     {console.log(this.state.teams.length)}
-        //
+
         if(this.state.teams.length !== 0 ){
             return teamArray
         }
@@ -113,7 +105,6 @@ class TeamList extends React.Component {
                 {`The currentQuestionNumber is: ${this.state.questionNumber}`}
                 </div>
                 <div className="TeamName">
-                    {/*<Team/>*/}
                 {this.showTeams()}
                     {this.showQuestionDetails()}
                     {console.log(this.state.teams.length)}

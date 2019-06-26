@@ -13,8 +13,6 @@ class CurrentQuestion extends React.Component {
     }
 
     handleChange = (event) => {
-        // TODO doen hetzelfde, die in comment kan dus weg
-        //this.props.setAnswer(event.target.value);
         this.props.setGivenAnswer(event.target.value);
     };
 
@@ -34,8 +32,6 @@ class CurrentQuestion extends React.Component {
 
     handleSubmit = () => {
         alert('A answer was submitted: ' + this.props.team.givenAnswer);
-        //TODO kan weg, wordt al geset in didMount hierboven
-        //this.props.appliedAnswer();
         this.onSocketSend('ANSWER_SENT', {
             teamName: this.props.team.name,
             givenAnswer: this.props.team.givenAnswer
@@ -62,18 +58,14 @@ class CurrentQuestion extends React.Component {
                     this.props.history.push('/currentQuestion');
                     break;
                 case 'QUESTION_CLOSED':
-                    console.log('nu alles stuk');
                     break;
                 case 'SELECT_QUESTION':
-                    //console.log(msg.type);
-                    //Krijg vraag binnen
+
                     break;
                 case 'ANSWER_SENT':
                     console.log(msg)
-                    //stuur vraag gesloten
                     break;
                 case 'QUIZZER_END':
-                    // TODO pad bestaat nog niet
                     this.props.history.push('/endQuizzer');
                     break;
                 default:
@@ -95,7 +87,6 @@ class CurrentQuestion extends React.Component {
 }
 
 function SendAnswer(props){
-    // TODO netter maken
     if(props.sent === false) {
         return (
             <form onSubmit={(e) =>props.onSubmit(e)}>
@@ -110,15 +101,14 @@ function SendAnswer(props){
     }
     else{
         return(
-            <p>haha</p>
+            <p>U heeft al geantwoord</p>
         )
     }
 }
 
 const mapStateToProps = (state) => {
     return {
-        //question: state.answer.question,
-        //answer: state.answer.newAnswer,
+
         sent: state.team.sent,
         team: state.team
     };
@@ -126,12 +116,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        // setAnswer: (answer) => {
-        //     dispatch(applyAnswer(answer));
-        // },
-        // appliedAnswer: () => {
-        //     dispatch(appliedAnswer());
-        // },
         setCurrentQuestion: (question) => dispatch(setCurrentQuestion(question)),
         setGivenAnswer: (answer) => dispatch(setGivenAnswer(answer))
     };

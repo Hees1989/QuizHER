@@ -24,9 +24,3 @@ export function getWebSocket() {
     }
 }
 
-
-// function checkFetchError( response ) {
-//     return response.ok
-//         ? response.json()
-//         : Promise.reject(new Error('Unexpected response'));
-// }

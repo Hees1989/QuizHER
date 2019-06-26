@@ -5,7 +5,7 @@ class TeamDetails extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            teamName: '1',
+            teamName: 'Botan',
             pointsThisRound: 0,
             totalPoints: 0,
             correctlyAnsweredQuestions: 0,
@@ -80,15 +80,12 @@ class TeamDetails extends React.Component {
                     });
                     break;
                 case 'QUIZZER_START':
-                    // this.props.history.push('/currentQuestion');
                     break;
                 case 'ANSWER_SENT':
                     this.checkIfSubmitted(msg.payload.teamName,msg.payload.givenAnswer);
-                    // this.props.history.push('/currentQuestion');
                     break;
                 case 'QUESTION_CLOSED':
                     this.showAnswer(msg.payload.teamName)
-                    // this.props.history.push('/currentQuestion');
                     break;
             }
         }

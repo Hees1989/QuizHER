@@ -28,8 +28,6 @@ class Queue extends React.Component {
     };
 
     render() {
-        // TODO : make nicer queue screen
-
         return (
             <div>
                 Waiting...

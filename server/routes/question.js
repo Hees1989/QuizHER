@@ -33,17 +33,6 @@ router.post('/setUsed/:question', (req, res) => {
         if (err) return res.send(500, { error: err });
         return res.send("succesfully saved");
     });
-        // try {
-        //     Questions.updateOne()(
-        //         {question: req.params.question},
-        //         {$set:{gangsta: true}}
-        //         )
-        //
-        // } catch (e) {
-        //     print(e.());
-        // }
-
-        // res.json('oh yeah')
     }
 );
 
