@@ -48,7 +48,7 @@ class CurrentQuestion extends React.Component {
                     //Krijg vraag binnen
                     break;
                 case 'ANSWER_SENT':
-                    //console.log(msg)
+                    console.log(msg)
                     //stuur vraag gesloten
                     break;
                 case 'QUIZZER_END':
@@ -105,9 +105,9 @@ const mapDispatchToProps = (dispatch) => {
         // setAnswer: (answer) => {
         //     dispatch(applyAnswer(answer));
         // },
-        appliedAnswer: () => {
-            dispatch(appliedAnswer());
-        },
+        // appliedAnswer: () => {
+        //     dispatch(appliedAnswer());
+        // },
         setGivenAnswer: (answer) => dispatch(setGivenAnswer(answer))
     };
 };

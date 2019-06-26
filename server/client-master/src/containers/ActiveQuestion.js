@@ -4,6 +4,7 @@ import 'bulma/css/bulma.css';
 import {getWebSocket, openWebSocket} from "../serverCommunication";
 import {setGivenAnswer} from "../actions/teamActions";
 import {Link} from "react-router-dom";
+import {AnswerItem} from "../components/AnswerItem";
 
 class ActiveQuestion extends React.Component {
     componentDidMount() {
@@ -52,6 +53,34 @@ class ActiveQuestion extends React.Component {
         ws.onopen = () => ws.send(JSON.stringify(msg));
     };
 
+    // showAnswersList = () => {
+    //     let answerArray = [];
+    //     let team = this.props.teams;
+    //
+    //     return (
+    //         team.forEach((team,index) => {
+    //       answerArray.push(
+    //           <AnswerItem
+    //           key={index}
+    //           team={team}
+    //           acceptAnswer={this.onSocketSend}
+    //           declineAnswer={this.onSocketSend}
+    //           />
+    //       )
+    //         })
+    //     )
+    // }
+
+
+
+    handleGoodButton = () => {
+        this.onSocketSend("TEAM_INCREASE_SCORE", 1);
+    };
+
+    handleBadButton = () => {
+        this.onSocketSend("TEAM_INCREASE_SCORE", 0);
+    };
+
     render() {
         return (
             <div>
@@ -67,6 +96,7 @@ class ActiveQuestion extends React.Component {
                         <h1>Gegeven antwoorden</h1>
                         <div id="answers">
 
+                            {/*{this.showAnswersList()}*/}
                         </div>
                         <button className="button is-danger" onClick={console.log('close questions')}>Stop vraag</button>
                         <button className="button is-primary"><Link to="/selectQuestion">Nieuwe vraag</Link></button>

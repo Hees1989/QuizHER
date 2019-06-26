@@ -100,8 +100,6 @@ wss.on('connection', (socket, req) => {
         break;
       case 'TEAM_CURRENT_QUESTION':
         wss.clients.forEach((client) => {
-          console.log('klopt dit? :');
-          console.log(msg.payload);
           client.send(JSON.stringify(
               {
                 type: msg.type,
