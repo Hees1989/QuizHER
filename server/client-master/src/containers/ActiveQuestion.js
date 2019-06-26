@@ -10,7 +10,8 @@ class ActiveQuestion extends React.Component {
     componentDidMount() {
         openWebSocket();
         this.onSocketSend('TEAM_CURRENT_QUESTION', {
-            currentQuestion: this.props.activeQuestion.question
+            currentQuestion: this.props.activeQuestion.question,
+            currentCategory: this.props.activeQuestion.category
         });
         const ws = getWebSocket();
         this.checkMessage(ws);
@@ -87,6 +88,7 @@ class ActiveQuestion extends React.Component {
                 <section className="section">
                     <div className="container">
                         <h1>Huidige vraag: </h1>
+                        <p>{this.props.activeQuestion.category}</p>
                         <p>{this.props.activeQuestion.question}</p>
                         <p>{this.props.activeQuestion.answer}</p>
                     </div>
