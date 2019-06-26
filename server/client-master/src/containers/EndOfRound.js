@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import 'bulma/css/bulma.css';
+import {Link} from "react-router-dom";
 
 class EndOfRound extends React.Component {
 
@@ -8,8 +9,8 @@ class EndOfRound extends React.Component {
         // TODO functionaliteit knoppen implementeren
         return (
             <div>
-                <span className="button is-primary">Volgende ronde!</span>
-                <span className="button is-primary">Einde spel!</span>
+                <span className="button is-primary"><Link to="/categories">Volgende ronde!</Link></span>
+                <span className="button is-primary"><Link to="/endOfGame">Einde spel!</Link></span>
             </div>
         );
     }

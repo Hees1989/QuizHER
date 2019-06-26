@@ -8,9 +8,10 @@ import {Footer} from "../components/Footer";
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import CategoryList from "./CategoryList";
 import QuestionList from "./QuestionList";
-import Answers from './Answers';
+//import Answers from './Answers';
 import ActiveQuestion from "./ActiveQuestion";
 import EndOfRound from "./EndOfRound";
+import EndOfGame from "./EndOfGame";
 
 class App extends React.Component {
 
@@ -26,6 +27,7 @@ class App extends React.Component {
                             <Route path="/selectQuestion" component={QuestionList}/>
                             <Route path="/activeQuestion" component={ActiveQuestion}/>
                             <Route path="/endOfRound" component={EndOfRound}/>
+                            <Route path="/endOfGame" component={EndOfGame}/>
                             {/*<Route path="/answers" component={Answers}/>*/}
                         </Switch>
                     </Router>
