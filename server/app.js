@@ -85,13 +85,14 @@ wss.on('connection', (socket, req) => {
       case 'QUESTION_CLOSED':
         wss.clients.forEach((client) => {
           client.send(JSON.stringify({
-            type: msg.type
+            type: msg.type,
+            payload: msg.payload
           }));
         });
         break;
       case 'ANSWER_SENT':
         wss.clients.forEach((client) => {
-          console.log(msg.payload);
+          // console.log(msg.payload);
           client.send(JSON.stringify({
             type: msg.type,
             payload: msg.payload
@@ -100,8 +101,6 @@ wss.on('connection', (socket, req) => {
         break;
       case 'TEAM_CURRENT_QUESTION':
         wss.clients.forEach((client) => {
-          console.log('klopt dit? :');
-          console.log(msg.payload);
           client.send(JSON.stringify(
               {
                 type: msg.type,

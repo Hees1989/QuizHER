@@ -7,7 +7,8 @@ const teamReducer = (state = {
     sent: false,
     text: '',
     currentQuestion: '',
-    givenAnswer: ''
+    givenAnswer: '',
+    points:0
 
 }, action) => {
     // eslint-disable-next-line
@@ -41,6 +42,11 @@ const teamReducer = (state = {
             return {
                 ...state,
                 givenAnswer: action.payload
+            };
+        case teamConstants.TEAM_INCREASE_SCORE:
+            return {
+                ...state,
+                points: this.state.points + action.payload
             };
     }
     return state;
